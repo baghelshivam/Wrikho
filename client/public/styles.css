@@ -1,0 +1,58 @@
+body{
+    background-color: black;
+    margin: 0;
+}
+.footer{
+    bottom: 0;
+    color: gray ;
+    margin: 0;
+    position: fixed;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    text-align: center;
+    width: 100%;
+}
+.header{
+    border-bottom: 1px solid gray;
+    color: whitesmoke;
+    font-family: 'Sawarabi Gothic', sans-serif;
+    font-size: 20px;
+    margin: 0;
+    padding: 1%;
+}
+img{
+    top:0;
+    position: relative;
+    display: block;
+    width: 99%;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+}
+.note {
+    box-sizing: border-box;
+    border:1px solid gray;
+    width: 15rem;
+    color:gray;
+    margin:3%;
+    float: left;
+    border-radius: 5px;
+    position: relative;
+}
+.title{
+    position: absolute; /* when using image change to absolute */
+    text-align: right;
+    border-bottom: 1px solid gray;
+    margin: 0px 5%;
+    margin-top: 1%;
+    font-size: 20px;
+    z-index: 1;
+}
+.content{
+    bottom: 0%;
+    color:white;
+    text-align: right;
+    right: 2%;
+    position: absolute;
+    z-index: 1;
+}

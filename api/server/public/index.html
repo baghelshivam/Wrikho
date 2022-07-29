@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.min.js" type="text/javascript"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/addons/p5.dom.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <script id="canvasSketch" src="sketch.js"></script>
+    <!-- <script>
+        var socket = io('http://localhost:3001');
+        socket.on('greetings-from-server', function (message) {
+            document.body.appendChild(
+            document.createTextNode(message.greeting)
+                );
+            socket.emit('greetings-from-client', {
+                greeting: 'Hello Server'
+                });
+            });
+    </script> -->
+</body>
+</html>

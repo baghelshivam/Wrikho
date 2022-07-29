@@ -1,0 +1,18 @@
+{
+  "name": "wrikho(api)",
+  "version": "1.0.0",
+  "description": "\"backend Wrikho\"",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "baghelshivam",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "express": "^4.18.1",
+    "p5": "^1.4.2",
+    "socket.io": "^4.5.1"
+  }
+}
