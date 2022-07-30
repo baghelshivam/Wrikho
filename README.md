@@ -14,6 +14,7 @@ Frontend interface ongoing.
 * **Html**  
 * **Nodejs(16.15.1)**
 * **Fabric.js**
+* **@reduxjs/toolkit and react-redux**
 
 ### For testing
 
