@@ -1,5 +1,5 @@
 {
-  "name": "wrikho(api)",
+  "name": "wrikho_api",
   "version": "1.0.0",
   "description": "\"backend Wrikho\"",
   "main": "index.js",
@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
     "express": "^4.18.1",
     "p5": "^1.4.2",
     "socket.io": "^4.5.1"

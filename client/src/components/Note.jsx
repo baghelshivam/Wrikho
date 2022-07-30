@@ -3,7 +3,7 @@ import React from "react"
 function Note(props) {
 
     function callSketch() {
-        location.assign("/canvas");
+        window.location.assign("/canvas");
     }
 
     return <div onClick={callSketch} className="note">
