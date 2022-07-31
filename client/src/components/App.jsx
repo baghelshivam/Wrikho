@@ -8,27 +8,16 @@ import Fabric from "./Fabric";
 import NotFound from "./NotFound";
 
 function App() {
-    //making http request using useEffect
 
-    //const [data, setData] = React.useState(null);
-
-    //React.useEffect(() => {
-    //    fetch("/api")
-    //.then((res) => console.log(res));
-    //      // .then((data) => setData(data.message));
-    //  }, []);
-    return <div>
-        <Header />
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/canvas" element={<Fabric />} />
-                    <Route path="/not-found" element={<NotFound />} />
-                    <Route exact path="/" element={<Notes />} />
-                    <Route path="*" element={<Navigate to="/not-found" />} />
-                </Routes>
-            </BrowserRouter>
-        <Footer />
-    </div>
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/canvas" element={<Fabric />} />
+                <Route path="/not-found" element={<NotFound />} />
+                <Route exact path="/" element={<Notes />} />
+                <Route path="*" element={<Navigate to="/not-found" />} />
+            </Routes>
+        </BrowserRouter>);
     //        <p style={{ color: "red" }}>{!data ? "Loading.." : data}</p>
 };
 

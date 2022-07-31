@@ -1,8 +1,11 @@
 import React, { useEffect, useRef } from 'react'
 import { fabric } from 'fabric'
 
+import Header from "./Header";      //importing components
+import Footer from "./Footer";
+
 const FabricJSCanvas = () => {				//canvas creating function
-	
+
 	const canvasEl = useRef(null);			//created null reference for dom object (canvas)
 
 	useEffect(() => {						//tells to do something after rendring
@@ -34,9 +37,13 @@ const FabricJSCanvas = () => {				//canvas creating function
 		, []);
 
 	return (								//returning div element conataining Fabric canvas
-	<div className="fabricCanvas"> 
-		<canvas style={{ textAlign: "center" }} ref={canvasEl} />
-	</div>
+		<div>
+			<Header />
+			<div className="fabricCanvas">
+				<canvas style={{ textAlign: "center" }} ref={canvasEl} />
+			</div>
+			<Footer />
+		</div>
 	);
 };
 export default FabricJSCanvas;
