@@ -20,7 +20,6 @@ const store = configureStore({                    //configuring store
 store.dispatch(notesFetch());                     //dispaching action creator
 
 const rootHome = ReactDOM.createRoot(document.getElementById("rootHome"));    //for home page
-console.log(rootHome);
 
 rootHome.render(
   <React.StrictMode>

@@ -1,8 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { fabric } from 'fabric'
 
-import PopupSize from "./Sizepopup";
-
 const FabricJSCanvas = () => {				//canvas creating function
 	
 	const canvasEl = useRef(null);			//created null reference for dom object (canvas)
@@ -36,8 +34,7 @@ const FabricJSCanvas = () => {				//canvas creating function
 		, []);
 
 	return (								//returning div element conataining Fabric canvas
-	<div> 
-		<PopupSize />
+	<div className="fabricCanvas"> 
 		<canvas style={{ textAlign: "center" }} ref={canvasEl} />
 	</div>
 	);

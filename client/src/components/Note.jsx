@@ -8,7 +8,7 @@ function Note(props) {
 
     return <div onClick={callSketch} className="note">
         <h1 className="title">{props.title}</h1>
-        <img src={props.image} />
+        <img src={props.image} alt={props.content}/>
         <p className="content">{props.content}</p>
     </div>
 }

@@ -19,7 +19,6 @@ function App() {
     //  }, []);
     return <div>
         <Header />
-        <div>
             <BrowserRouter>
                 <Routes>
                     <Route path="/canvas" element={<Fabric />} />
@@ -28,7 +27,6 @@ function App() {
                     <Route path="*" element={<Navigate to="/not-found" />} />
                 </Routes>
             </BrowserRouter>
-        </div>
         <Footer />
     </div>
     //        <p style={{ color: "red" }}>{!data ? "Loading.." : data}</p>
