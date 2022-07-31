@@ -1,9 +1,7 @@
 import React from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import Header from "./Header";      //importing components
-import Footer from "./Footer";
-import Notes from "./Notes";
+import Notes from "./Notes";        //importing components
 import Fabric from "./Fabric";
 import NotFound from "./NotFound";
 
