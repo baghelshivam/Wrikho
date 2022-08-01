@@ -34,10 +34,10 @@ const server = app.listen(PORT, () => {			//listning on the port
 	console.log(`Server listening on ${PORT}`);
 });
 
-socketIO = require("socket.io")(server);	//socket io server code
-socketIO.sockets.on("connection", function (socket) {
-	socket.emit("greetings-from-server", { greeting: "hello Client" });
-	socket.on("greetings-from-client", function (message) {
-		console.log(message);
-	});
-});
+// socketIO = require("socket.io")(server);	//socket io server code
+// socketIO.sockets.on("connection", function (socket) {
+// 	socket.emit("greetings-from-server", { greeting: "hello Client" });
+// 	socket.on("greetings-from-client", function (message) {
+// 		console.log(message);
+// 	});
+// });

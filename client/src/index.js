@@ -9,6 +9,7 @@ import App from "./components/App.jsx";
 
 import { notesFetch } from "./features/notesSlice";     // can include notesReducer
 import { notesApi } from "./features/notesApi";
+
 const store = configureStore({                    //configuring store
   reducer: {
     // notes: notesReducer,
