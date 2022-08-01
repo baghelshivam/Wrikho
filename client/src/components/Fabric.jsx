@@ -43,7 +43,7 @@ const FabricJSCanvas = () => {				//canvas creating function
 			height: 800,
 			width: 800,
 			backgroundColor: "white",
-			isDrawingMode: "true",
+			isDrawingMode: "tru",
 		})
 	);
 
