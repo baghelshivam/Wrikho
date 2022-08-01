@@ -39,7 +39,7 @@ const notes = [
         id:1,
         title: "Dog",
         image: "https://cdn.pixabay.com/photo/2017/12/28/12/31/sketch-3045125_960_720.jpg" ,
-        content: "Dogs Skecthpad"
+        content: "Astronout rocket earth idea moon ufo"
     },
     {
         id:2,
