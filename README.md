@@ -21,7 +21,7 @@ Frontend interface ongoing.
 * Clone repo into local system.  
 * Goto the Write App directory and in the client and api run  following commands on terminal.  
 
-            npm i install           
+            npm install           
 > it will install required packages listed on package-lock.json file.  
 
 * Run api in api directory:
