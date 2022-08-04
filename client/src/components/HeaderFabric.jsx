@@ -12,6 +12,9 @@ function Header() {
                 <button>
                     <i className="bi-plus-lg"></i>
                 </button>
+                <button id="drawing">
+                <i className="bi bi-pencil"></i>
+                </button>
                 <button id="zoomIn">
                     <i className="bi bi-zoom-in"></i>
                 </button>

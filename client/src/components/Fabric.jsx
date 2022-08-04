@@ -5,8 +5,6 @@ import Header from "./HeaderFabric";      //importing components
 
 const FabricJSCanvas = () => {
 
-	var canvasScale = 1; 					//for zooming
-	var SCALE_FACTOR = 1.2;					//
 
 	const canvasEl = useRef(null);			//created null reference for dom object (canvas)
 
@@ -19,9 +17,26 @@ const FabricJSCanvas = () => {
 		};
 		const canvas = new fabric.Canvas(canvasEl.current, options);	/*new canvas element created by fabric 
 																		with reference priviously defined and give options*/
-		canvas.isDrawingMode = true;		//this property is for if we can draw with mouse pointer
 
+		/*-------------Functions intialization--------------*/
+		var canvasScale = 1; 					//for zooming
+		var SCALE_FACTOR = 1.2;
+		const zoomIn = (canvas) => {
+			console.log("zoomin");
+			canvasScale = canvasScale * SCALE_FACTOR;
+			canvas.setHeight(canvas.getHeight() * SCALE_FACTOR);
+			canvas.setWidth(canvas.getWidth() * SCALE_FACTOR);
+			canvas.setZoom(canvas.getZoom() * SCALE_FACTOR);
+		}
 
+		const zoomOut = (canvas) => {
+			console.log("zoomout");
+			canvasScale = canvasScale / SCALE_FACTOR;
+
+			canvas.setHeight(canvas.getHeight() * (1 / SCALE_FACTOR));
+			canvas.setWidth(canvas.getWidth() * (1 / SCALE_FACTOR));
+			canvas.setZoom(canvas.getZoom() / SCALE_FACTOR);
+		}
 
 		const updateCanvasContext = (canvas) => {		//this is the function which user can define to update context of canvas
 			document.getElementById("zoomIn").onclick = function (event) {
@@ -30,7 +45,14 @@ const FabricJSCanvas = () => {
 			document.getElementById("zoomOut").onclick = function (event) {
 				zoomOut(canvas);
 			};
+			document.getElementById("drawing").onclick = function (event){
+				console.log(canvas.isDrawingMode);				//this property is for if we can draw with mouse pointer
+				canvas.isDrawingMode = !canvas.isDrawingMode;
+			}
 		}
+		/*----------Functions intialization ends----------*/
+
+
 		updateCanvasContext(canvas);
 		return () => {
 			updateCanvasContext(null);
@@ -39,31 +61,10 @@ const FabricJSCanvas = () => {
 	}									//Useeffct ends
 		, []);
 
-
-	const zoomIn = (canvas) => {
-		console.log("zoomin");
-		canvasScale = canvasScale * SCALE_FACTOR;
-		canvas.setHeight(canvas.getHeight() * SCALE_FACTOR);
-		canvas.setWidth(canvas.getWidth() * SCALE_FACTOR);
-		canvas.setZoom(canvas.getZoom() * 1.2);
-
-	}
-
-	const zoomOut = (canvas) => {
-		console.log("zoomout");
-		canvasScale = canvasScale / SCALE_FACTOR;
-
-		canvas.setHeight(canvas.getHeight() * (1 / SCALE_FACTOR));
-		canvas.setWidth(canvas.getWidth() * (1 / SCALE_FACTOR));
-		canvas.setZoom(canvas.getZoom() / 1.2);
-	}
-
-
-
 	return (
 		<div>
 			<Header />
-			<canvas width="300" height="300" ref={canvasEl} />
+				<canvas width="300" height="300" ref={canvasEl} />
 		</div>
 	);		//returning div element conataining Fabric canvas
 };
