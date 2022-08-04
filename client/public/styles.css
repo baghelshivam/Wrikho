@@ -183,17 +183,22 @@ html,body {
     width: 100%;
 }
 
-/*---------------------Fabric-------------------*/
+---------------------Fabric-------------------
 .fabric{
     margin: 4.9em 0 0 0;
 }
 .fabricCanvas {
-    margin:auto;
-    /* margin: 4.9em 0 0 0; */
+    margin: 4.9em 0 0 0;
 }
 .canvas-container{
-    height: fit-content;
+    display: block!important;
     margin:auto;
+}
+
+canvas{
+    display: block!important;
+    /* height: 100vh!important; */
+    /* height: 40%!important; */
 }
 
 /*---------------------Header Fabric---------------*/

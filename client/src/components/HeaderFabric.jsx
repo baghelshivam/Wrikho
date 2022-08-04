@@ -7,15 +7,18 @@ function Header() {
             </div>
             <div className="flexItems">
                 <button>
-                <i className="bi-list"></i>
+                    <i className="bi-list"></i>
                 </button>
                 <button>
                     <i className="bi-plus-lg"></i>
                 </button>
-                <button>
-                <i className="bi bi-search"></i>
+                <button id="zoomIn">
+                    <i className="bi bi-zoom-in"></i>
                 </button>
-                </div>
+                <button id="zoomOut">
+                    <i className="bi bi-zoom-out"></i>
+                </button>
+            </div>
         </header>);
 }
 
