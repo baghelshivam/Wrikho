@@ -13,13 +13,14 @@ const Notes = () => {
         <div>
             <Header />
             {/* <PopupSize /> */}
-            {isLoading ? (<p>Loding---</p>) :
+            {
                 error ? (<p>An error in fetching data.</p>) :
-                    (<>
-                        <div className="notes">
-                            {data?.map(note => <Note key={note.id} title={note.title} image={note.image} content={note.content} />)}
-                        </div>
-                    </>)}
+                    isLoading ? (<p style={{textAlign : "center" , margin : "20em"}}>Loding---</p>) :
+                        (<>
+                            <div className="notes">
+                                {data?.map(note => <Note key={note.id} title={note.title} image={note.link} content={note.content} />)}
+                            </div>
+                        </>)}
             <Footer />
         </div>
     );

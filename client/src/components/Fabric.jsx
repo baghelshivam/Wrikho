@@ -17,6 +17,10 @@ const FabricJSCanvas = () => {
 		};
 		const canvas = new fabric.Canvas(canvasEl.current, options);	/*new canvas element created by fabric 
 																		with reference priviously defined and give options*/
+		canvas.freeDrawingBrush.width = 0.5;
+		canvas.on("path:created", (e) => {		//event listner to check change in data on canvas
+			console.log(JSON.stringify(canvas));
+		})
 
 		/*-------------Functions intialization--------------*/
 		var canvasScale = 1; 					//for zooming
@@ -38,6 +42,7 @@ const FabricJSCanvas = () => {
 			canvas.setZoom(canvas.getZoom() / SCALE_FACTOR);
 		}
 
+		console.log(JSON.stringify(canvas));
 		const updateCanvasContext = (canvas) => {		//this is the function which user can define to update context of canvas
 			document.getElementById("zoomIn").onclick = function (event) {
 				zoomIn(canvas);
@@ -45,9 +50,12 @@ const FabricJSCanvas = () => {
 			document.getElementById("zoomOut").onclick = function (event) {
 				zoomOut(canvas);
 			};
-			document.getElementById("drawing").onclick = function (event){
+			document.getElementById("drawing").onclick = function (event) {
 				console.log(canvas.isDrawingMode);				//this property is for if we can draw with mouse pointer
 				canvas.isDrawingMode = !canvas.isDrawingMode;
+			}
+			document.getElementById("clear").onclick = function (event) {
+				canvas.clear();
 			}
 		}
 		/*----------Functions intialization ends----------*/
@@ -64,7 +72,7 @@ const FabricJSCanvas = () => {
 	return (
 		<div>
 			<Header />
-				<canvas width="300" height="300" ref={canvasEl} />
+			<canvas width="300" height="300" ref={canvasEl} />
 		</div>
 	);		//returning div element conataining Fabric canvas
 };

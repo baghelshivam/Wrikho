@@ -1,5 +1,8 @@
-import React from "react"
+import React from "react";
+// import { useAddNewNoteMutation } from "../features/notesApi";
 function Header() {
+    // const [addNewNote, { isLoading }] = useAddNewNoteMutation();
+    // await addNewNote().unwrap();
     return (
         <header className="header flexItems">
             <div className="flexItems">
@@ -7,15 +10,15 @@ function Header() {
             </div>
             <div className="flexItems">
                 <button>
-                <i className="bi-list"></i>
+                    <i className="bi-list"></i>
                 </button>
                 <button>
                     <i className="bi-plus-lg"></i>
                 </button>
                 <button>
-                <i className="bi bi-search"></i>
+                    <i className="bi bi-search"></i>
                 </button>
-                </div>
+            </div>
         </header>);
 }
 

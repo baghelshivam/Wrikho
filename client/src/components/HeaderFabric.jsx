@@ -6,7 +6,7 @@ function Header() {
                 <a href="/" className="logo">Wrikho</a>
             </div>
             <div className="flexItems">
-                <button>
+                <button id="clear">
                     <i className="bi-list"></i>
                 </button>
                 <button>

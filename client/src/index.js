@@ -7,7 +7,7 @@ import { Provider } from "react-redux";
 import "./index.css";
 import App from "./components/App.jsx";
 
-import { notesFetch } from "./features/notesSlice";     // can include notesReducer
+// import { notesFetch } from "./features/notesSlice";     // can include notesReducer
 import { notesApi } from "./features/notesApi";
 
 const store = configureStore({                    //configuring store
@@ -18,7 +18,7 @@ const store = configureStore({                    //configuring store
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(notesApi.middleware),
 });
 
-store.dispatch(notesFetch());                     //dispaching action creator
+// store.dispatch(notesFetch());                     //dispaching action
 
 const rootHome = ReactDOM.createRoot(document.getElementById("rootHome"));    //for home page
 
