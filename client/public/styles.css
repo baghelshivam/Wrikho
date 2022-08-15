@@ -33,7 +33,7 @@ html,body {
     right: 0;
     left: 0;
     justify-content: space-between;
-    z-index: 5;
+    z-index: 3;
     background-color: inherit;
     color: white;
     align-items: center !important;

@@ -7,14 +7,18 @@ export const notesApi = createApi({
     tagTypes:   ['Note'],
     endpoints: (builder) => ({
         getAllNotes: builder.query({
-            query: () => "/notes",
+            query: () => ({
+                url: "/notes",
+                method: "GET",
+            }),
+            // query: () => "/notes",
             providesTags: ['Note']
         }),
         addNewNote: builder.mutation({
             query: intialNote => ({
                 url: "/notes",
-                method: "POST",
-                body: intialNote
+                method: 'POST',
+                body: intialNote,
             }),
             invalidatesTages: ['Note']
         })

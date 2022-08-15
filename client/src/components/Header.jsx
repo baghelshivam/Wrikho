@@ -1,8 +1,7 @@
 import React from "react";
-// import { useAddNewNoteMutation } from "../features/notesApi";
+
 function Header() {
-    // const [addNewNote, { isLoading }] = useAddNewNoteMutation();
-    // await addNewNote().unwrap();
+
     return (
         <header className="header flexItems">
             <div className="flexItems">
@@ -12,7 +11,7 @@ function Header() {
                 <button>
                     <i className="bi-list"></i>
                 </button>
-                <button>
+                <button id="add">
                     <i className="bi-plus-lg"></i>
                 </button>
                 <button>

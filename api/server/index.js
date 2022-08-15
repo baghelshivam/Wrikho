@@ -7,8 +7,8 @@ const mongoose = require("mongoose");
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use(cors());								//allowing accesing api from client
 app.use(express.static(path.join(__dirname, "public")));	//for reading files locally form public directory
 
@@ -55,6 +55,10 @@ app.get("/notes", (req, res) => {
 	res.send(notes);
 });
 
+app.post("/notes", (req,res)=>{
+	const data = req.body;
+	console.log(data);
+})
 
 const server = app.listen(PORT, () => {			//listning on the port
 	console.log(`Server listening on ${PORT}`);
