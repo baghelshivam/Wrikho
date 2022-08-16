@@ -3,6 +3,8 @@ const cors = require("cors");
 const path = require("path");
 const bodyParser = require('body-parser');
 const mongoose = require("mongoose");
+const fs = require("fs");
+const { json } = require("body-parser");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -12,8 +14,36 @@ app.use(bodyParser.json());
 app.use(cors());								//allowing accesing api from client
 app.use(express.static(path.join(__dirname, "public")));	//for reading files locally form public directory
 
+const server = app.listen(PORT, () => {			//listning on the port
+	console.log(`Server listening on ${PORT}`);
+});
 
 
+/*--------------- SocketIo--------------*/
+
+const socketIO = require("socket.io")(server);	//socket io server code
+socketIO.sockets.on("connection", function (socket) {
+	console.log("starting connection");
+
+	fs.readFile("/home/dell73/Downloads/WrikhoData" + "/canvas.json", (err, data) => {
+		if (err) {
+			console.log("error in reading");
+		} else {
+			console.log("succesfully readed");
+			console.log(JSON.stringify(JSON.parse(data)));
+			socket.emit("greetings-from-server", JSON.stringify(JSON.parse(data))); //on connection emiting signal
+		}
+	});
+
+	socket.on("greetings-from-client", function (message) { 			//on caching signal
+		fs.writeFile("/home/dell73/Downloads/WrikhoData" + "/canvas.json", message, err => {
+			if (err) {
+				console.log("error in writing");
+			} else console.log("succesfully wrote");
+		});
+	});
+
+});
 
 /* ----------------- database ----------------------*/
 
@@ -27,23 +57,9 @@ const noteSchema = new mongoose.Schema({
 });
 
 const Note = mongoose.model("Note", noteSchema);
-var notes;
-
-Note.find(function (err, data) {
-	if (err) {
-		console.log(err);
-	} else {
-		notes = data;
-	}
-});
 
 
 /*----------------------- databaseEnd -----------------------*/
-//routes for requests
-// app.get("/api", (req, res) => {	
-// 	// console.log(req.body);
-// 	// res.sendFile(__dirname+"/public/index.html");
-// });
 
 
 /*-----------------routes-----------------*/
@@ -52,7 +68,13 @@ app.get("/", (req, res) => {
 });
 
 app.get("/notes", (req, res) => {
-	res.send(notes);
+	Note.find(function (err, notes) {
+		if (err) {
+			console.log(err);
+		} else {
+			res.send(notes);
+		}
+	});
 });
 
 app.post("/notes", (req, res) => {
@@ -63,32 +85,31 @@ app.post("/notes", (req, res) => {
 		else {
 
 			console.log("count:", count);
-			
+
 			var new_note = new Note({
 				_id: count + 1,
 				title: req.body.title,
 				link: req.body.link,
 				content: req.body.content
 			})
-			
-			console.log(new_note);
-			
+
+			// console.log(new_note);
+
 			new_note.save(function (err, result) {
 				if (err) console.log(err);
-				else console.log(result);
+				else {
+					console.log(result);
+					return res.redirect("/notes");
+				}
 			})
 		}
 	})
 })
 
-const server = app.listen(PORT, () => {			//listning on the port
-	console.log(`Server listening on ${PORT}`);
+app.put("/canvas", (req, res) => {
+	console.log("canvas changed");
+	console.log(req.body);
 });
 
-// socketIO = require("socket.io")(server);	//socket io server code
-// socketIO.sockets.on("connection", function (socket) {
-// 	socket.emit("greetings-from-server", { greeting: "hello Client" });
-// 	socket.on("greetings-from-client", function (message) {
-// 		console.log(message);
-// 	});
-// });
+
+/*-----------------Soket Io -----------------------*/
