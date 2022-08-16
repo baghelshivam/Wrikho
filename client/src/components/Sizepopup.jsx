@@ -6,25 +6,25 @@ import { useAddNewNoteMutation } from "../features/notesApi";
 const PopupTemplate = (prop) => {
 
     const [show, setShow] = useState(false);
-    const [name, setName] = useState("name");
+    const [title, setTitle] = useState("name");
     const [link, setLink] = useState("link");
     const [content, setContent] = useState("content");
 
     const [addNewNote, { iSLoading }] = useAddNewNoteMutation();
 
-    const nameChange = e => setName(e.target.value);
+    const titleChange = e => setTitle(e.target.value);
     const linkChange = e => setLink(e.target.value);
     const contentChange = e => setContent(e.target.value);
 
-    const canSave = [name, link, content].every(Boolean) && !iSLoading;
+    const canSave = [title, link, content].every(Boolean) && !iSLoading;
 
     const saveData = async () => {
         console.log("plus clicked");
         if (canSave) {
             try {
                 console.log("it is sending");
-                await addNewNote({ name, link, content }).unwrap();
-                setName("");
+                await addNewNote({ title, link, content }).unwrap();
+                setTitle("");
                 setLink("");
                 setContent("");
             } catch (err) {
@@ -39,7 +39,7 @@ const PopupTemplate = (prop) => {
         document.getElementById("submit").onclick = function (event) {
             saveData();
         };
-    }, [prop.show, name, link, content]); // including name link content so it can be used by savedata
+    }, [prop.show, title, link, content]); // including name link content so it can be used by savedata
 
 
     return (
@@ -51,7 +51,7 @@ const PopupTemplate = (prop) => {
                 <h4>New WrikhoPad</h4>
                 <form>
                     <label htmlFor="fname">Name:</label><br></br>
-                    <input type={"text"} onChange={nameChange}></input><br></br>
+                    <input type={"text"} onChange={titleChange}></input><br></br>
                     <label htmlFor="lname">Link:</label><br></br>
                     <input type={"text"} onChange={linkChange}></input><br></br>
                     <label htmlFor="cname">Content:</label><br></br>

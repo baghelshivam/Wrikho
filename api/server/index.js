@@ -17,7 +17,7 @@ app.use(express.static(path.join(__dirname, "public")));	//for reading files loc
 
 /* ----------------- database ----------------------*/
 
-mongoose.connect("mongodb://localhost:27017/wrikhoDB", {useNewUrlParser: true});
+mongoose.connect("mongodb://localhost:27017/wrikhoDB", { useNewUrlParser: true });
 
 const noteSchema = new mongoose.Schema({
 	_id: Number,
@@ -26,13 +26,13 @@ const noteSchema = new mongoose.Schema({
 	content: String
 });
 
-const Note = mongoose.model("Note",noteSchema);
+const Note = mongoose.model("Note", noteSchema);
 var notes;
 
-Note.find(function(err, data){
-	if(err){
+Note.find(function (err, data) {
+	if (err) {
 		console.log(err);
-	}else{
+	} else {
 		notes = data;
 	}
 });
@@ -55,9 +55,30 @@ app.get("/notes", (req, res) => {
 	res.send(notes);
 });
 
-app.post("/notes", (req,res)=>{
+app.post("/notes", (req, res) => {
 	const data = req.body;
-	console.log(data);
+	var query = Note.find();
+	query.count(function (err, count) {
+		if (err) console.log(err);
+		else {
+
+			console.log("count:", count);
+			
+			var new_note = new Note({
+				_id: count + 1,
+				title: req.body.title,
+				link: req.body.link,
+				content: req.body.content
+			})
+			
+			console.log(new_note);
+			
+			new_note.save(function (err, result) {
+				if (err) console.log(err);
+				else console.log(result);
+			})
+		}
+	})
 })
 
 const server = app.listen(PORT, () => {			//listning on the port
