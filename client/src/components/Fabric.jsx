@@ -15,6 +15,7 @@ const FabricJSCanvas = () => {
 	var canvasScale = 1; 					//for zooming
 	var SCALE_FACTOR = 1.2;
 
+
 	/*-------------Functions intialization--------------*/
 
 	const zoomIn = (canvas) => {
@@ -65,16 +66,23 @@ const FabricJSCanvas = () => {
 
 
 
-		/*--------soket----------*/
-
+		/*--------Soket----------*/
 
 		const socket = socketIOClient(ENDPOINT, { transports: ['websocket', 'polling', 'flashsocket'] });
-		
+
+		console.log("socket  : ", socket);
+
 		socket.on("greetings-from-server", data => {
-			console.log("connected");
-			console.log(data);
+			// console.log("connected");
+			// console.log(data);
 			canvas.loadFromJSON(data);
 		});
+
+		canvas.on("object:modified", () => {
+			console.log("canvas modified");
+			socket.emit("greetings-from-client", JSON.stringify(canvas));
+		});
+
 
 		canvas.on("path:created", (e) => {		//event listner to check change in data on canvas
 			console.log("path changed");
@@ -82,9 +90,7 @@ const FabricJSCanvas = () => {
 		}
 		);
 
-
-
-		// console.log(JSON.stringify(canvas));
+		/*-------------SocketEnd---------*/
 
 		updateCanvasContext(canvas);
 		return () => {

@@ -23,14 +23,13 @@ const server = app.listen(PORT, () => {			//listning on the port
 
 const socketIO = require("socket.io")(server);	//socket io server code
 socketIO.sockets.on("connection", function (socket) {
-	console.log("starting connection");
+	// console.log("starting connection");
 
 	fs.readFile("/home/dell73/Downloads/WrikhoData" + "/canvas.json", (err, data) => {
 		if (err) {
 			console.log("error in reading");
 		} else {
-			console.log("succesfully readed");
-			console.log(JSON.stringify(JSON.parse(data)));
+			// console.log("succesfully readed");
 			socket.emit("greetings-from-server", JSON.stringify(JSON.parse(data))); //on connection emiting signal
 		}
 	});
@@ -39,7 +38,10 @@ socketIO.sockets.on("connection", function (socket) {
 		fs.writeFile("/home/dell73/Downloads/WrikhoData" + "/canvas.json", message, err => {
 			if (err) {
 				console.log("error in writing");
-			} else console.log("succesfully wrote");
+			} else {
+				console.log("succesfully wrote");
+				socket.broadcast.emit("greetings-from-server", message);
+			}
 		});
 	});
 
