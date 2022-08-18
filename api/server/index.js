@@ -51,8 +51,8 @@ socketIO.sockets.on("connection", function (socket) {
 
 mongoose.connect("mongodb://localhost:27017/wrikhoDB", { useNewUrlParser: true });
 
-const noteSchema = new mongoose.Schema({
-	_id: Number,
+const noteSchema = new mongoose.Schema({				//_id can be used as saving files in name of _id
+	id: Number,
 	title: String,
 	link: String,
 	content: String
@@ -85,11 +85,11 @@ app.post("/notes", (req, res) => {
 	query.count(function (err, count) {
 		if (err) console.log(err);
 		else {
-
+			// {"objects":[],"background":"#fff"}			//intial data for blank page version doesnt matter 
 			console.log("count:", count);
 
 			var new_note = new Note({
-				_id: count + 1,
+				id: count + 1,
 				title: req.body.title,
 				link: req.body.link,
 				content: req.body.content
@@ -101,6 +101,16 @@ app.post("/notes", (req, res) => {
 				if (err) console.log(err);
 				else {
 					console.log(result);
+					// result._id.toHexString() will give _id using this we will create new file
+					const intialData = JSON.stringify({"objects":[],"background":"#fff"});
+					fs.writeFile("/home/dell73/Downloads/WrikhoData/" +result._id.toHexString()+".json", intialData, err => {
+						if (err) {
+							console.log("error in writing");
+						} else {
+							console.log("succesfully wrote new file");
+							// socket.broadcast.emit("greetings-from-server", message);
+						}
+					});
 					return res.redirect("/notes");
 				}
 			})
