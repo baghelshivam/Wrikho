@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const notesApi = createApi({
     reducerPath: "notesApi",
     baseQuery: fetchBaseQuery({ baseUrl: "http://192.168.120.230:3001" }),     //for accesing on the phone 
-    tagTypes:   ['Note'],
+    tagTypes: ['Note'],
     endpoints: (builder) => ({
         getAllNotes: builder.query({
             query: () => ({
@@ -15,14 +15,14 @@ export const notesApi = createApi({
             providesTags: ['Note']
         }),
         addNewNote: builder.mutation({
-            query: intialNote => ({
+            query: initialNote => ({
                 url: "/notes",
                 method: 'POST',
-                body: intialNote,
+                body: initialNote,
             }),
             invalidatesTages: ['Note']
-        })
+        }),
     }),
 });
 
-export const { useGetAllNotesQuery , useAddNewNoteMutation } = notesApi;
+export const { useGetAllNotesQuery, useAddNewNoteMutation, useGetNotesDataMutation } = notesApi;
