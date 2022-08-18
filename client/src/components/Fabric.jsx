@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { fabric } from 'fabric'
+import { useParams } from 'react-router-dom';
 
 import socketIOClient from "socket.io-client";
 
@@ -9,6 +10,7 @@ const ENDPOINT = "http://192.168.120.230:3001";			//for also accesing data on an
 
 const FabricJSCanvas = () => {
 
+	const params = useParams();
 
 	const canvasEl = useRef(null);			//created null reference for dom object (canvas)
 
@@ -104,6 +106,7 @@ const FabricJSCanvas = () => {
 		<div>
 			<Header />
 			<canvas width="300" height="300" ref={canvasEl} />
+			<h1>{params.pathId}</h1>
 		</div>
 	);		//returning div element conataining Fabric canvas
 };

@@ -10,7 +10,7 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/canvas" element={<Fabric />} />
+                <Route path="/canvas/:pathId" element={<Fabric />} />
                 <Route path="/not-found" element={<NotFound />} />
                 <Route exact path="/" element={<Notes />} />
                 <Route path="*" element={<Navigate to="/not-found" />} />
