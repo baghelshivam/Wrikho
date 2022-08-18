@@ -16,7 +16,7 @@ export const notesApi = createApi({
         }),
         addNewNote: builder.mutation({
             query: initialNote => ({
-                url: "/notes",
+                url: "/addNote",
                 method: 'POST',
                 body: initialNote,
             }),

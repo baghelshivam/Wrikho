@@ -39,7 +39,7 @@ const PopupTemplate = (prop) => {
         setShow(prop.show);
         document.getElementById("submit").onclick = function (event) {
             saveData();
-            // window.location.assign("/canvas");
+            // window.location.assign("/canvas/");
         };
     }, [prop.show, title, link, content]); // including name link content so it can be used by savedata
 

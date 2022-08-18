@@ -9,18 +9,18 @@ const ENDPOINT = "http://192.168.120.230:3001";			//for also accesing data on an
 
 
 const FabricJSCanvas = () => {
-	const params = useParams();	//We can access id by params.pathId
 
-
+	const canvasId = useParams().pathId;	//We can access id by params.pathId
 	const canvasEl = useRef(null);			//created null reference for dom object (canvas)
 
 	var canvasScale = 1; 					//for zooming
 	var SCALE_FACTOR = 1.2;
 
 
+
 	/*-------------Functions intialization--------------*/
 
-	const zoomIn = (canvas) => {
+	const zoomIn = (canvas) => {					//zoom in function
 		console.log("zoomin");
 		canvasScale = canvasScale * SCALE_FACTOR;
 		canvas.setHeight(canvas.getHeight() * SCALE_FACTOR);
@@ -28,7 +28,7 @@ const FabricJSCanvas = () => {
 		canvas.setZoom(canvas.getZoom() * SCALE_FACTOR);
 	}
 
-	const zoomOut = (canvas) => {
+	const zoomOut = (canvas) => {					//zoom out function
 		console.log("zoomout");
 		canvasScale = canvasScale / SCALE_FACTOR;
 
@@ -52,11 +52,11 @@ const FabricJSCanvas = () => {
 			canvas.clear();
 		}
 	}
+
 	/*----------Functions intialization ends----------*/
 
 
 	useEffect(() => {						//tells to do something after rendring
-		// getData();
 		const options = {					//options for canvas
 			backgroundColor: '#fff',
 			selectionColor: '#9fa8a3A9',	//added alpha in hex code last two digits
@@ -68,34 +68,25 @@ const FabricJSCanvas = () => {
 		canvas.freeDrawingBrush.width = 0.5;
 
 
-
 		/*--------Soket----------*/
 
 		const socket = socketIOClient(ENDPOINT, { transports: ['websocket', 'polling', 'flashsocket'] });
-		socket.on("give-us-id", giv => {
-			if (giv) {
-				console.log("on server manging bhikh wer: ", params.pathId)
-				socket.emit("take-id", params.pathId);
-			}
+		socket.on("give-us-id", () => {		//server asking for id of the Note
+			socket.emit("take-id", canvasId);
 		});
-		socket.on("greetings-from-server",(incomingId, data) => {
-			console.log("connected");
-			console.log("params.pathId :",data);
-			console.log("Id :",incomingId);
-			incomingId == params.pathId ? canvas.loadFromJSON(data) : console.log("Ids not match"); 
+		socket.on("data-from-server", (incomingId, data) => {
+			incomingId === canvasId ? canvas.loadFromJSON(data) : console.log("Ids not match");	//checking incoming data belong to this file or not 
 		});
 
-		canvas.on("object:modified", () => {
-			console.log("canvas modified");
-			socket.emit("greetings-from-client", params.pathId,JSON.stringify(canvas));
+			/*------EventListeners-----*/
+		canvas.on("object:modified", () => {	//canvas modified
+			socket.emit("data-from-client", canvasId, JSON.stringify(canvas));
 		});
-
-
 		canvas.on("path:created", (e) => {		//event listner to check change in data on canvas
-			console.log("path changed");
-			socket.emit("greetings-from-client", params.pathId,JSON.stringify(canvas));
+			socket.emit("data-from-client", canvasId, JSON.stringify(canvas));
 		}
 		);
+
 
 		/*-------------SocketEnd---------*/
 
@@ -104,8 +95,7 @@ const FabricJSCanvas = () => {
 			updateCanvasContext(null);
 			canvas.dispose()
 		}
-	}									//Useeffct ends
-		, []);
+	}, [canvasId]);						//Useeffct ends
 
 	return (
 		<div>
