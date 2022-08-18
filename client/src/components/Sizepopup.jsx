@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
 
 import { useAddNewNoteMutation } from "../features/notesApi";
 
@@ -9,6 +9,7 @@ const PopupTemplate = (prop) => {
     const [title, setTitle] = useState("name");
     const [link, setLink] = useState("link");
     const [content, setContent] = useState("content");
+    // const navigate = useNavigate();
 
     const [addNewNote, { iSLoading }] = useAddNewNoteMutation();
 
@@ -38,6 +39,7 @@ const PopupTemplate = (prop) => {
         setShow(prop.show);
         document.getElementById("submit").onclick = function (event) {
             saveData();
+            // window.location.assign("/canvas");
         };
     }, [prop.show, title, link, content]); // including name link content so it can be used by savedata
 
