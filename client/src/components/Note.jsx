@@ -1,7 +1,7 @@
 import React from "react"
 
 function Note(props) {
-
+    
     function callSketch() {
         window.location.assign("/canvas");
     }

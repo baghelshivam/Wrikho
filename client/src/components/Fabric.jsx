@@ -4,7 +4,7 @@ import { fabric } from 'fabric'
 import socketIOClient from "socket.io-client";
 
 import Header from "./HeaderFabric";      //importing components
-const ENDPOINT = "http://localhost:3001";
+const ENDPOINT = "http://192.168.120.230:3001";			//for also accesing data on another connected device
 
 
 const FabricJSCanvas = () => {

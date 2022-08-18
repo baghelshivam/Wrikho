@@ -33,7 +33,7 @@ const Notes = () => {
                     isLoading ? (<p style={{ textAlign: "center", marginTop: "20em" }}>Loding---</p>) :
                         (<>
                             <div className="notes">
-                                {data?.map(note => <Note key={note._id} title={note.title} image={note.link} content={note.content} />)}
+                                {data?.map(note => <Note key={note.id} title={note.title} image={note.link} content={note.content} />)}
                             </div>
                         </>)}
             <Footer />
