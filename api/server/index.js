@@ -19,28 +19,39 @@ const server = app.listen(PORT, () => {			//listning on the port
 });
 
 
+var id = null;
 /*--------------- SocketIo--------------*/
 
 const socketIO = require("socket.io")(server);	//socket io server code
 socketIO.sockets.on("connection", function (socket) {
-	// console.log("starting connection");
+	console.log("starting connection server");
+	socket.emit("give-us-id", { giv: true });
+	socket.on("take-id", ID => {
+		id = ID;
+		console.log("Id given by client",ID);
 
-	fs.readFile("/home/dell73/Downloads/WrikhoData" + "/canvas.json", (err, data) => {
-		if (err) {
-			console.log("error in reading");
+		// console.log(id);
+		if (id === null) {
+			console.log("stopping server");
 		} else {
-			// console.log("succesfully readed");
-			socket.emit("greetings-from-server", JSON.stringify(JSON.parse(data))); //on connection emiting signal
-		}
+			fs.readFile("/home/dell73/Downloads/WrikhoData/" + id + ".json", (err, data) => {
+				if (err) {
+					console.log("error in reading");
+				} else {
+					// console.log("succesfully readed");
+					socket.emit("greetings-from-server", id,JSON.stringify(JSON.parse(data))); //on connection emiting signal
+				}
+			});
+		}	
 	});
 
-	socket.on("greetings-from-client", function (message) { 			//on caching signal
-		fs.writeFile("/home/dell73/Downloads/WrikhoData" + "/canvas.json", message, err => {
+	socket.on("greetings-from-client", (ID,message) =>{ 			//on caching signal
+		fs.writeFile("/home/dell73/Downloads/WrikhoData/" + ID + ".json", message, err => {
 			if (err) {
 				console.log("error in writing");
 			} else {
 				console.log("succesfully wrote");
-				socket.broadcast.emit("greetings-from-server", message);
+				socket.broadcast.emit("greetings-from-server", ID,message);
 			}
 		});
 	});
@@ -79,6 +90,10 @@ app.get("/notes", (req, res) => {
 	});
 });
 
+app.post("/notesData", (req, res) => {
+	console.log(req.body.id);
+});
+
 app.post("/notes", (req, res) => {
 	const data = req.body;
 	var query = Note.find();
@@ -102,8 +117,8 @@ app.post("/notes", (req, res) => {
 				else {
 					console.log(result);
 					// result._id.toHexString() will give _id using this we will create new file
-					const intialData = JSON.stringify({"objects":[],"background":"#fff"});
-					fs.writeFile("/home/dell73/Downloads/WrikhoData/" +result._id.toHexString()+".json", intialData, err => {
+					const intialData = JSON.stringify({ "objects": [], "background": "#fff" });
+					fs.writeFile("/home/dell73/Downloads/WrikhoData/" + result._id.toHexString() + ".json", intialData, err => {
 						if (err) {
 							console.log("error in writing");
 						} else {

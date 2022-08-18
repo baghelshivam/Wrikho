@@ -1,6 +1,6 @@
-import React, { useEffect, useRef } from 'react'
-import { fabric } from 'fabric'
+import React, { useEffect, useRef } from 'react';
 import { useParams } from 'react-router-dom';
+import { fabric } from 'fabric';
 
 import socketIOClient from "socket.io-client";
 
@@ -9,8 +9,8 @@ const ENDPOINT = "http://192.168.120.230:3001";			//for also accesing data on an
 
 
 const FabricJSCanvas = () => {
+	const params = useParams();	//We can access id by params.pathId
 
-	const params = useParams();
 
 	const canvasEl = useRef(null);			//created null reference for dom object (canvas)
 
@@ -56,6 +56,7 @@ const FabricJSCanvas = () => {
 
 
 	useEffect(() => {						//tells to do something after rendring
+		// getData();
 		const options = {					//options for canvas
 			backgroundColor: '#fff',
 			selectionColor: '#9fa8a3A9',	//added alpha in hex code last two digits
@@ -71,24 +72,28 @@ const FabricJSCanvas = () => {
 		/*--------Soket----------*/
 
 		const socket = socketIOClient(ENDPOINT, { transports: ['websocket', 'polling', 'flashsocket'] });
-
-		console.log("socket  : ", socket);
-
-		socket.on("greetings-from-server", data => {
-			// console.log("connected");
-			// console.log(data);
-			canvas.loadFromJSON(data);
+		socket.on("give-us-id", giv => {
+			if (giv) {
+				console.log("on server manging bhikh wer: ", params.pathId)
+				socket.emit("take-id", params.pathId);
+			}
+		});
+		socket.on("greetings-from-server",(incomingId, data) => {
+			console.log("connected");
+			console.log("params.pathId :",data);
+			console.log("Id :",incomingId);
+			incomingId == params.pathId ? canvas.loadFromJSON(data) : console.log("Ids not match"); 
 		});
 
 		canvas.on("object:modified", () => {
 			console.log("canvas modified");
-			socket.emit("greetings-from-client", JSON.stringify(canvas));
+			socket.emit("greetings-from-client", params.pathId,JSON.stringify(canvas));
 		});
 
 
 		canvas.on("path:created", (e) => {		//event listner to check change in data on canvas
 			console.log("path changed");
-			socket.emit("greetings-from-client", JSON.stringify(canvas));
+			socket.emit("greetings-from-client", params.pathId,JSON.stringify(canvas));
 		}
 		);
 
@@ -106,7 +111,6 @@ const FabricJSCanvas = () => {
 		<div>
 			<Header />
 			<canvas width="300" height="300" ref={canvasEl} />
-			<h1>{params.pathId}</h1>
 		</div>
 	);		//returning div element conataining Fabric canvas
 };

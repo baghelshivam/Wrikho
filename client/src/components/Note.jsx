@@ -3,8 +3,7 @@ import React from "react"
 function Note(props) {
     
     function callSketch() {
-        window.location.assign("/canvas");
-        alert("Id : "+props.id);
+        window.location.assign("/canvas/"+props.id);
     }
 
     return <div onClick={callSketch} className="note">
