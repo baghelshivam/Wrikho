@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const notesApi = createApi({
     reducerPath: "notesApi",
-    baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3001" }),
+    baseQuery: fetchBaseQuery({ baseUrl: "http://192.168.120.230:3001" }),     //for accesing on the phone 
     tagTypes:   ['Note'],
     endpoints: (builder) => ({
         getAllNotes: builder.query({
