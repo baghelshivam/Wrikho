@@ -4,6 +4,7 @@ function Note(props) {
     
     function callSketch() {
         window.location.assign("/canvas");
+        alert("Id : "+props.id);
     }
 
     return <div onClick={callSketch} className="note">
