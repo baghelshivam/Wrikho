@@ -15,7 +15,8 @@ BackEnd ongoing.
 * **Nodejs(16.15.1)**
 * **Fabric.js**
 * **@reduxjs/toolkit and react-redux**
-* ** socket.io**
+* **socket.io**
+* **Mongoose**
 
 ### For testing
 
