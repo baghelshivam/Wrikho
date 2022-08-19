@@ -49,7 +49,18 @@ const FabricJSCanvas = () => {
 			canvas.isDrawingMode = !canvas.isDrawingMode;
 		}
 		document.getElementById("clear").onclick = function (event) {
-			canvas.clear();
+			var deletObj = canvas.getActiveObject();
+			if(deletObj.type === "activeSelection"){
+				deletObj.canvas = canvas;
+				deletObj.forEachObject((obj)=>{
+					canvas.remove(obj);
+				});
+			}else{
+				var activeObject = canvas.getActiveObject();
+				if(activeObject !== null){
+					canvas.remove(activeObject);
+				}
+			}
 		}
 	}
 

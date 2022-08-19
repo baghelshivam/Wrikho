@@ -37,9 +37,12 @@ const PopupTemplate = (prop) => {
 
     useEffect(() => {                                           //after page is rendered when onclick event occur save data and post it
         setShow(prop.show);
-        document.getElementById("submit").onclick = function (event) {
-            saveData();
-            // window.location.assign("/canvas/");
+        // document.getElementById("submit").onclick = function (event) {
+        //     saveData();
+        //     // window.location.assign("/canvas/");
+        // };
+        document.getElementById("cancel").onclick = () => {
+            setShow(false);
         };
     }, [prop.show, title, link, content]); // including name link content so it can be used by savedata
 
@@ -51,14 +54,15 @@ const PopupTemplate = (prop) => {
         }}>
             <div style={{ paddingTop: "10em", color: "black", top: "0", left: "0", right: "0", bottom: "0", textAlign: "center", position: "fixed", zIndex: "4", background: "#48d889" }}>
                 <h4>New WrikhoPad</h4>
-                <form>
+                <form onSubmit={saveData}>
                     <label htmlFor="fname">Name:</label><br></br>
-                    <input type={"text"} onChange={titleChange}></input><br></br>
+                    <input type={"text"} onChange={titleChange} required></input><br></br>
                     <label htmlFor="lname">Link:</label><br></br>
-                    <input type={"text"} onChange={linkChange}></input><br></br>
+                    <input type={"text"} onChange={linkChange}  required></input><br></br>
                     <label htmlFor="cname">Content:</label><br></br>
                     <input type={"text"} onChange={contentChange}></input><br></br>
-                    <button id="submit">Submit</button>
+                    <input type={"submit"} value="Submit"/>
+                    <button id="cancel">Cancel</button>
                 </form>
             </div>
 
