@@ -4,7 +4,7 @@ It is a Web App where user can create hand written notes which is aimed to work 
 
 ### Build Status
 
-Frontend interface ongoing.
+BackEnd ongoing.
 
 ### Technology Used
 
@@ -36,5 +36,13 @@ Frontend interface ongoing.
 
 ### Future Plan
 
-* Adding Database
-* Adding backend functionality
+Adding online support.
+
+### What achived
+
+* Front End using react and redux store.
+* Saving data locally using fs(read,write) File.
+* Added Database support.
+* Each Note has individual files.
+* Can create blank Note by adding it on home page.
+* End to End real time cumunication using socket.io
