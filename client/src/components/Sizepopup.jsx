@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
 
 import { useAddNewNoteMutation } from "../features/notesApi";
 
@@ -9,7 +8,6 @@ const PopupTemplate = (prop) => {
     const [title, setTitle] = useState("name");
     const [link, setLink] = useState("link");
     const [content, setContent] = useState("content");
-    // const navigate = useNavigate();
 
     const [addNewNote, { iSLoading }] = useAddNewNoteMutation();
 
@@ -20,14 +18,13 @@ const PopupTemplate = (prop) => {
     const canSave = [title, link, content].every(Boolean) && !iSLoading;
 
     const saveData = async () => {
-        console.log("plus clicked");
         if (canSave) {
             try {
-                console.log("it is sending");
-                await addNewNote({ title, link, content }).unwrap();
+                const response = await addNewNote({ title, link, content }).unwrap();
                 setTitle("");
                 setLink("");
                 setContent("");
+                // window.location.assign("/canvas/" + response);
             } catch (err) {
                 console.error("failed to save post ", err);
             }
@@ -37,10 +34,6 @@ const PopupTemplate = (prop) => {
 
     useEffect(() => {                                           //after page is rendered when onclick event occur save data and post it
         setShow(prop.show);
-        // document.getElementById("submit").onclick = function (event) {
-        //     saveData();
-        //     // window.location.assign("/canvas/");
-        // };
         document.getElementById("cancel").onclick = () => {
             setShow(false);
         };
@@ -58,10 +51,10 @@ const PopupTemplate = (prop) => {
                     <label htmlFor="fname">Name:</label><br></br>
                     <input type={"text"} onChange={titleChange} required></input><br></br>
                     <label htmlFor="lname">Link:</label><br></br>
-                    <input type={"text"} onChange={linkChange}  required></input><br></br>
+                    <input type={"text"} onChange={linkChange} required></input><br></br>
                     <label htmlFor="cname">Content:</label><br></br>
                     <input type={"text"} onChange={contentChange}></input><br></br>
-                    <input type={"submit"} value="Submit"/>
+                    <input type={"submit"} value="Submit" />
                     <button id="cancel">Cancel</button>
                 </form>
             </div>

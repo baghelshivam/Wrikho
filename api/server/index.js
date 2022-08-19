@@ -111,7 +111,8 @@ app.post("/addNote", (req, res) => {
 							console.log("succesfully wrote new file");
 						}
 					});
-					return res.redirect("/notes");
+					res.send(JSON.stringify(result._id.toHexString()));
+					// return res.redirect("/notes");
 				}
 			})
 		}

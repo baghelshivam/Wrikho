@@ -20,7 +20,10 @@ export const notesApi = createApi({
                 method: 'POST',
                 body: initialNote,
             }),
-            invalidatesTages: ['Note']
+            transformResponse: (response) => {
+                return response;
+            },
+            // invalidatesTages: ['Note']
         }),
     }),
 });
