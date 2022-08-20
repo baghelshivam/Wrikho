@@ -118,13 +118,20 @@ app.delete("/deleteNote", (req, res) => {
 			return res.status(500);
 		} else {
 			console.log("Succesfully deleted Note with Id: " + req.body.id);
+			fs.stat("/home/dell73/Downloads/WrikhoData/" + req.body.id + ".json" , (err,ans)=>{
+				if(err) console.log(err);
+				else fs.unlink("/home/dell73/Downloads/WrikhoData/" + req.body.id + ".json",(err)=>{
+					if(err)	console.log(err);
+					else console.log("File with Id : "+req.body.id+" deleted");
+				});
+			});
 			return res.end();
 		}
 	});
 });
 
 app.get("/notes", (req, res) => {
-	Note.find(function (err, notes) {
+	Note.find((err, notes) => {
 		if (err) {
 			console.log(err);
 		} else {

@@ -1,9 +1,10 @@
 import React, { useState } from "react"
 import { useDeleteNoteMutation } from '../features/notesApi';
 
+
 const Note = (props) => {
 
-    const [deleteNOTE, { isLoading }] = useDeleteNoteMutation();
+    const [deleteNOTE, { isLoading }] = useDeleteNoteMutation({}, { refetchOnMountOrArgChange: true });
     const [id, setId] = useState(props.id);
     const canDelete = [props.id].every(Boolean) && !isLoading;
 
@@ -25,7 +26,7 @@ const Note = (props) => {
     function deleteNote() {
         delNote();
         console.log("delete pressed : ", props.id);
-        // window.location.reload();
+        window.location.reload();
     }
 
     return <div className="note">

@@ -19,7 +19,6 @@ const store = configureStore({                    //configuring store
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(notesApi.middleware),
 });
 
-setupListeners(store.dispatch);
 
 const rootHome = ReactDOM.createRoot(document.getElementById("rootHome"));    //for home page
 

@@ -9,7 +9,7 @@ import { useEffect } from "react";
 import PopupTemplate from "./Sizepopup";
 
 const Notes = () => {
-    const { data, error, isLoading } = useGetAllNotesQuery();     //invoking data from notes
+    const { data, error, isLoading } = useGetAllNotesQuery({},{refetchOnMountOrArgChange: true});     //invoking data from notes
     const [visibility, setVisibility] = useState(false);
 
 
