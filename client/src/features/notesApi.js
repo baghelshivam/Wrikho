@@ -1,31 +1,38 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-
 export const notesApi = createApi({
     reducerPath: "notesApi",
-    baseQuery: fetchBaseQuery({ baseUrl: "http://192.168.120.230:3001" }),     //for accesing on the phone 
-    tagTypes: ['Note'],
+    baseQuery: fetchBaseQuery({ baseUrl: "http://192.168.231.230:3001" }),     //for accesing on the phone 
+    tagTypes: ["Note"],
     endpoints: (builder) => ({
+
         getAllNotes: builder.query({
-            query: () => ({
-                url: "/notes",
-                method: "GET",
-            }),
-            // query: () => "/notes",
-            providesTags: ['Note']
+            query: () => "/notes",
+            providesTags: ["Note"]
         }),
+
         addNewNote: builder.mutation({
-            query: initialNote => ({
+            query: ( newNote ) => ({
                 url: "/addNote",
                 method: 'POST',
-                body: initialNote,
+                body: newNote,
+                transformResponse: (response) => { return response; }
             }),
-            transformResponse: (response) => {
-                return response;
-            },
-            // invalidatesTages: ['Note']
+            // responseHandler: (response) => response.text(),
+            invalidatesTages: ["Note"],
+
         }),
+
+        deleteNote: builder.mutation({
+            query: (id) => ({
+                url: "/deleteNote",
+                method: "DELETE",
+                body: id,
+                responseHandler: (response) => response.text(),
+            }),
+            invalidatesTages: ["Note"]
+        })
     }),
 });
 
-export const { useGetAllNotesQuery, useAddNewNoteMutation, useGetNotesDataMutation } = notesApi;
+export const { useGetAllNotesQuery, useAddNewNoteMutation, useDeleteNoteMutation } = notesApi;

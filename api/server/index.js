@@ -75,15 +75,6 @@ app.get("/", (req, res) => {
 	res.sendFile(__dirname + "/public/index.html");
 });
 
-app.get("/notes", (req, res) => {
-	Note.find(function (err, notes) {
-		if (err) {
-			console.log(err);
-		} else {
-			res.send(notes);
-		}
-	});
-});
 
 app.post("/addNote", (req, res) => {
 	const data = req.body;
@@ -98,11 +89,11 @@ app.post("/addNote", (req, res) => {
 				link: req.body.link,
 				content: req.body.content
 			})
-			newNote.save(function (err, result) {
+			newNote.save((err, result) => {
 				if (err) console.log(err);
 				else {
 					console.log(result);
-										// result._id.toHexString() will give _id using this we will create new file
+					// result._id.toHexString() will give _id using this we will create new file
 					const intialData = JSON.stringify({ "objects": [], "background": "#fff" });	//intial data for blank page version doesnt matter
 					fs.writeFile("/home/dell73/Downloads/WrikhoData/" + result._id.toHexString() + ".json", intialData, err => {
 						if (err) {
@@ -117,6 +108,29 @@ app.post("/addNote", (req, res) => {
 			})
 		}
 	})
-})
+});
+
+app.delete("/deleteNote", (req, res) => {
+	console.log("Note to be deleted : ", req.body.id);
+	Note.deleteOne({ _id: req.body.id }, (err, result) => {
+		if (err) {
+			console.log(err);
+			return res.status(500);
+		} else {
+			console.log("Succesfully deleted Note with Id: " + req.body.id);
+			return res.end();
+		}
+	});
+});
+
+app.get("/notes", (req, res) => {
+	Note.find(function (err, notes) {
+		if (err) {
+			console.log(err);
+		} else {
+			res.send(notes);
+		}
+	});
+});
 
 /*-----------------Soket Io -----------------------*/

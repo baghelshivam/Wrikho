@@ -1,12 +1,12 @@
 import React, { useEffect, useRef } from 'react';
+import socketIOClient from "socket.io-client";
 import { useParams } from 'react-router-dom';
 import { fabric } from 'fabric';
 
-import socketIOClient from "socket.io-client";
 
 import Header from "./HeaderFabric";      //importing components
-const ENDPOINT = "http://192.168.120.230:3001";			//for also accesing data on another connected device
-
+import useWindowDimensions from './WindowDimension';
+const ENDPOINT = "http://192.168.231.230:3001";			//for also accesing data on another connected device
 
 const FabricJSCanvas = () => {
 
@@ -15,7 +15,7 @@ const FabricJSCanvas = () => {
 
 	var canvasScale = 1; 					//for zooming
 	var SCALE_FACTOR = 1.2;
-
+	const { height, width } = useWindowDimensions();
 
 
 	/*-------------Functions intialization--------------*/
@@ -50,14 +50,14 @@ const FabricJSCanvas = () => {
 		}
 		document.getElementById("clear").onclick = function (event) {
 			var deletObj = canvas.getActiveObject();
-			if(deletObj.type === "activeSelection"){
+			if (deletObj.type === "activeSelection") {
 				deletObj.canvas = canvas;
-				deletObj.forEachObject((obj)=>{
+				deletObj.forEachObject((obj) => {
 					canvas.remove(obj);
 				});
-			}else{
+			} else {
 				var activeObject = canvas.getActiveObject();
-				if(activeObject !== null){
+				if (activeObject !== null) {
 					canvas.remove(activeObject);
 				}
 			}
@@ -89,7 +89,7 @@ const FabricJSCanvas = () => {
 			incomingId === canvasId ? canvas.loadFromJSON(data) : console.log("Ids not match");	//checking incoming data belong to this file or not 
 		});
 
-			/*------EventListeners-----*/
+		/*------EventListeners-----*/
 		canvas.on("object:modified", () => {	//canvas modified
 			socket.emit("data-from-client", canvasId, JSON.stringify(canvas));
 		});
@@ -100,18 +100,21 @@ const FabricJSCanvas = () => {
 
 
 		/*-------------SocketEnd---------*/
-
+		window.addEventListener("resize", ()=>{//when height changes reload canvas
+			// canvasEl.current.clientHeight = height;
+			window.location.reload();
+		});
 		updateCanvasContext(canvas);
 		return () => {
 			updateCanvasContext(null);
-			canvas.dispose()
+			canvas.dispose();
 		}
 	}, [canvasId]);						//Useeffct ends
 
 	return (
 		<div>
 			<Header />
-			<canvas width="300" height="300" ref={canvasEl} />
+			<canvas width={height * 0.7 * 0.7} height={height * 0.7} ref={canvasEl} />
 		</div>
 	);		//returning div element conataining Fabric canvas
 };

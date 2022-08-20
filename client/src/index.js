@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 
 import { configureStore } from "@reduxjs/toolkit";
+import { setupListeners } from '@reduxjs/toolkit/query'
 import { Provider } from "react-redux";
 
 import "./index.css";
@@ -18,7 +19,7 @@ const store = configureStore({                    //configuring store
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(notesApi.middleware),
 });
 
-// store.dispatch(notesFetch());                     //dispaching action
+setupListeners(store.dispatch);
 
 const rootHome = ReactDOM.createRoot(document.getElementById("rootHome"));    //for home page
 

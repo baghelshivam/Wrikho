@@ -29,6 +29,7 @@ const PopupTemplate = (prop) => {
                 console.error("failed to save post ", err);
             }
         }
+        setShow(!prop.show);
     }
 
 
