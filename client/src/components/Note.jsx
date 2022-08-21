@@ -1,16 +1,15 @@
 import React, { useState } from "react"
-import { useDeleteNoteMutation } from '../features/notesApi';
-
+import { useDeleteNoteMutation, useGetImageDataQuery } from '../features/notesApi';
 
 const Note = (props) => {
 
     const [deleteNOTE, { isLoading }] = useDeleteNoteMutation({}, { refetchOnMountOrArgChange: true });
     const [id, setId] = useState(props.id);
     const canDelete = [props.id].every(Boolean) && !isLoading;
+    const { data, error, iSLoading } = useGetImageDataQuery(id);
 
-    function callSketch() {
-        window.location.assign("/canvas/" + props.id);
-    }
+
+
 
     const delNote = async () => {
         if (canDelete) {
@@ -23,20 +22,33 @@ const Note = (props) => {
         }
     }
 
+    function callSketch() {
+        window.location.assign("/canvas/" + props.id);
+    }
+
     function deleteNote() {
         delNote();
         console.log("delete pressed : ", props.id);
         window.location.reload();
     }
 
-    return <div className="note">
+    return (<div className="note" >
+
         <h1 className="title">{props.title}</h1>
-        <img onClick={callSketch} src={props.image} alt={props.content} />
+
+        {
+            error ? <p>error occured in loading data</p> :
+                iSLoading ? <h1>Loading.....</h1> :
+                    <img src={data} onClick={callSketch} alt={props.content} />
+        }
+
         <p className="content">{props.content}</p>
-        <button onClick={deleteNote}>
+
+        <button onClick={deleteNote} className="delete">
             <i className="bi bi-three-dots-vertical"></i>
         </button>
-    </div>
+
+    </div>);
 }
 
 

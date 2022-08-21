@@ -12,7 +12,7 @@ export const notesApi = createApi({
         }),
 
         addNewNote: builder.mutation({
-            query: ( newNote ) => ({
+            query: (newNote) => ({
                 url: "/addNote",
                 method: 'POST',
                 body: newNote,
@@ -31,8 +31,15 @@ export const notesApi = createApi({
                 responseHandler: (response) => response.text(),
             }),
             invalidatesTages: ["Note"]
+        }),
+
+        getImageData: builder.query({
+            query: (id) => ({
+                url: `/imageData/${id}`
+            }),
+            providesTags: ["Note"]
         })
     }),
 });
 
-export const { useGetAllNotesQuery, useAddNewNoteMutation, useDeleteNoteMutation } = notesApi;
+export const { useGetAllNotesQuery, useAddNewNoteMutation, useDeleteNoteMutation, useGetImageDataQuery } = notesApi;

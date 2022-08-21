@@ -4,6 +4,13 @@ const path = require("path");
 const bodyParser = require('body-parser');
 const mongoose = require("mongoose");
 const fs = require("fs");
+const { json } = require("body-parser");
+const fabric = require('fabric').fabric;
+
+var canvas = new fabric.StaticCanvas(null);
+
+
+
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -60,7 +67,6 @@ mongoose.connect("mongodb://localhost:27017/wrikhoDB", { useNewUrlParser: true }
 const noteSchema = new mongoose.Schema({				//_id can be used as saving files in name of _id
 	id: Number,
 	title: String,
-	link: String,
 	content: String
 });
 
@@ -86,7 +92,6 @@ app.post("/addNote", (req, res) => {
 			var newNote = new Note({
 				id: count + 1,
 				title: req.body.title,
-				link: req.body.link,
 				content: req.body.content
 			})
 			newNote.save((err, result) => {
@@ -103,7 +108,6 @@ app.post("/addNote", (req, res) => {
 						}
 					});
 					res.send(JSON.stringify(result._id.toHexString()));
-					// return res.redirect("/notes");
 				}
 			})
 		}
@@ -118,11 +122,11 @@ app.delete("/deleteNote", (req, res) => {
 			return res.status(500);
 		} else {
 			console.log("Succesfully deleted Note with Id: " + req.body.id);
-			fs.stat("/home/dell73/Downloads/WrikhoData/" + req.body.id + ".json" , (err,ans)=>{
-				if(err) console.log(err);
-				else fs.unlink("/home/dell73/Downloads/WrikhoData/" + req.body.id + ".json",(err)=>{
-					if(err)	console.log(err);
-					else console.log("File with Id : "+req.body.id+" deleted");
+			fs.stat("/home/dell73/Downloads/WrikhoData/" + req.body.id + ".json", (err, ans) => {
+				if (err) console.log(err);
+				else fs.unlink("/home/dell73/Downloads/WrikhoData/" + req.body.id + ".json", (err) => {
+					if (err) console.log(err);
+					else console.log("File with Id : " + req.body.id + " deleted");
 				});
 			});
 			return res.end();
@@ -140,4 +144,23 @@ app.get("/notes", (req, res) => {
 	});
 });
 
+app.get("/imageData/:id", (req, res) => {
+	console.log("inside /imageData id is :" + req.params.id);
+	fs.readFile("/home/dell73/Downloads/WrikhoData/" + req.params.id + ".json", (err, data) => {
+		if (err) {
+			console.log("error in reading");
+		} else {		//data acquired from NoteId.json file
+			canvas.loadFromJSON(JSON.stringify(JSON.parse(data)), () => {
+				canvas.renderAll();
+				var url = canvas.toDataURL(
+					{
+						width: 330,
+						height: 470
+					}
+				);
+				res.send(JSON.stringify(url));
+			});
+		}
+	});
+})
 /*-----------------Soket Io -----------------------*/

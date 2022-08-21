@@ -115,6 +115,7 @@ const FabricJSCanvas = () => {
 		<div>
 			<Header />
 			<canvas width={height * 0.7 * 0.7} height={height * 0.7} ref={canvasEl} />
+			<span id="container"></span>
 		</div>
 	);		//returning div element conataining Fabric canvas
 };

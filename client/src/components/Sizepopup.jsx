@@ -6,25 +6,21 @@ const PopupTemplate = (prop) => {
 
     const [show, setShow] = useState(false);
     const [title, setTitle] = useState("name");
-    const [link, setLink] = useState("link");
     const [content, setContent] = useState("content");
 
     const [addNewNote, { iSLoading }] = useAddNewNoteMutation();
 
     const titleChange = e => setTitle(e.target.value);
-    const linkChange = e => setLink(e.target.value);
     const contentChange = e => setContent(e.target.value);
 
-    const canSave = [title, link, content].every(Boolean) && !iSLoading;
+    const canSave = [title, content].every(Boolean) && !iSLoading;
 
     const saveData = async () => {
         if (canSave) {
             try {
-                const response = await addNewNote({ title, link, content }).unwrap();
+                const response = await addNewNote({ title, content }).unwrap();
                 setTitle("");
-                setLink("");
                 setContent("");
-                // window.location.assign("/canvas/" + response);
             } catch (err) {
                 console.error("failed to save post ", err);
             }
@@ -38,7 +34,7 @@ const PopupTemplate = (prop) => {
         document.getElementById("cancel").onclick = () => {
             setShow(false);
         };
-    }, [prop.show, title, link, content]); // including name link content so it can be used by savedata
+    }, [prop.show, title, content]); // including name link content so it can be used by savedata
 
 
     return (
@@ -51,9 +47,7 @@ const PopupTemplate = (prop) => {
                 <form onSubmit={saveData}>
                     <label htmlFor="fname">Name:</label><br></br>
                     <input type={"text"} onChange={titleChange} required></input><br></br>
-                    <label htmlFor="lname">Link:</label><br></br>
-                    <input type={"text"} onChange={linkChange} required></input><br></br>
-                    <label htmlFor="cname">Content:</label><br></br>
+                    <label htmlFor="lname">Content:</label><br></br>
                     <input type={"text"} onChange={contentChange}></input><br></br>
                     <input type={"submit"} value="Submit" />
                     <button id="cancel">Cancel</button>
