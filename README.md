@@ -38,13 +38,14 @@ BackEnd ongoing.
 
 ### Future Plan
 
--[x] Adding Database.
--[x] Adding backend functionality.
--[] Adding online support.
--[] Multi page support.
--[] Search capability on home page.
--[] More tools.
--[] Authentication.
+- [x] Adding Database.
+- [x] Adding backend functionality.
+- [ ] Adding online support.
+- [ ] Multi page support.
+- [ ] Search capability on home page.
+- [ ] More tools.
+- [ ] Authentication.
+
 
 ### What achived
 
