@@ -38,7 +38,14 @@ BackEnd ongoing.
 
 ### Future Plan
 
-Adding online support.
+- [x] Adding Database.
+- [x] Adding backend functionality.
+- [ ] Adding online support.
+- [ ] Multi page support.
+- [ ] Search capability on home page.
+- [ ] More tools.
+- [ ] Authentication.
+
 
 ### What achived
 
@@ -47,4 +54,5 @@ Adding online support.
 * Added Database support.
 * Each Note has individual files.
 * Can create blank Note by adding it on home page.
-* End to End real time cumunication using socket.io
+* End to End real time cumunication using socket.io .
+* Home page auto thumbnail completed.
