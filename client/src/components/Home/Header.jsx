@@ -1,20 +1,31 @@
 import React from "react";
+import { useState } from "react";
+import Search from "./Search";
 
-function Header() {
+const Header = () => {
+
+    const [showSearch, setShowSearch] = useState(false);
+
+    const searchBar = () => {
+        setShowSearch(e => !e);
+    }
+
+
 
     return (
         <header className="header flexItems">
             <div className="flexItems">
                 <a href="/" className="logo">Wrikho</a>
             </div>
-            <div className="flexItems">
+            <Search show={showSearch} />
+            <div className="flexItems" style={{ display: showSearch ? "none" : "inherit" }}>
                 <button id="list">
                     <i className="bi-list"></i>
                 </button>
                 <button id="add">
                     <i className="bi-plus-lg"></i>
                 </button>
-                <button>
+                <button onClick={searchBar}>
                     <i className="bi bi-search"></i>
                 </button>
             </div>

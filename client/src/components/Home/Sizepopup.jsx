@@ -48,9 +48,9 @@ const PopupTemplate = (prop) => {
                     <label htmlFor="fname">Name:</label><br></br>
                     <input type={"text"} onChange={titleChange} required></input><br></br>
                     <label htmlFor="lname">Content:</label><br></br>
-                    <input type={"text"} onChange={contentChange}></input><br></br>
-                    {/* <input type={"submit"} value="Submit" /> */}
-                    <button type={"submit"} value="Submit">Submit</button>
+                    <input type={"text"} onChange={contentChange} required></input><br></br>
+                    <input type={"submit"} value="Submit" />
+                    {/* <button type={"submit"} value="Submit">Submit</button> */}
                     <button id="cancel">Cancel</button>
                     {/* <input id="cancel" type={"cancel"} value="Cancel"/> */}
                 </form>
