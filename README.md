@@ -60,8 +60,10 @@ BackEnd ongoing.
 
 ### Demo
 
-## Home.
+#### Home.
 ![Home Page](https://github.com/baghelshivam/Wrikho/blob/master/ReadmeAssets/Home.png)
+Fectching data from database and respective files so obtaining thumbnail.
 
-## After clicking thumbnail.
+#### After clicking thumbnail.
 ![Writing Interface](https://github.com/baghelshivam/Wrikho/blob/master/ReadmeAssets/NotePad.png)
+Now we can write ,Delete and Select operations in the Pad.
