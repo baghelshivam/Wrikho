@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import { useAddNewNoteMutation } from "../features/notesApi";
+import { useAddNewNoteMutation } from "../../features/notesApi";
 
 const PopupTemplate = (prop) => {
 
@@ -49,8 +49,10 @@ const PopupTemplate = (prop) => {
                     <input type={"text"} onChange={titleChange} required></input><br></br>
                     <label htmlFor="lname">Content:</label><br></br>
                     <input type={"text"} onChange={contentChange}></input><br></br>
-                    <input type={"submit"} value="Submit" />
+                    {/* <input type={"submit"} value="Submit" /> */}
+                    <button type={"submit"} value="Submit">Submit</button>
                     <button id="cancel">Cancel</button>
+                    {/* <input id="cancel" type={"cancel"} value="Cancel"/> */}
                 </form>
             </div>
 

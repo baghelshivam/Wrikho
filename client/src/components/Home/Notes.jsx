@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useState , useEffect } from "react";
 
-import { useGetAllNotesQuery } from "../features/notesApi";
+import { useGetAllNotesQuery } from "../../features/notesApi";
 
 import Note from "./Note";
 import Header from "./Header";      //importing components
 import Footer from "./Footer";
-import { useEffect } from "react";
 import PopupTemplate from "./Sizepopup";
 
 const Notes = () => {

@@ -1,10 +1,9 @@
 import React from "react";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
-import Notes from "./Notes";        //importing components
-import Fabric from "./Fabric";
-import NotFound from "./NotFound";
-
+import Notes from "./Home/Notes";
+import Fabric from "./Canvas/Fabric";
+import NotFound from "./NoteFound/NotFound";
 function App() {
 
     return (

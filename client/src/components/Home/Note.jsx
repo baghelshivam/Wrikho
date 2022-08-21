@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { useDeleteNoteMutation, useGetImageDataQuery } from '../features/notesApi';
+import { useDeleteNoteMutation, useGetImageDataQuery } from '../../features/notesApi';
 
 const Note = (props) => {
 

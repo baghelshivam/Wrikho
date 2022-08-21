@@ -3,7 +3,6 @@ import socketIOClient from "socket.io-client";
 import { useParams } from 'react-router-dom';
 import { fabric } from 'fabric';
 
-
 import Header from "./HeaderFabric";      //importing components
 import useWindowDimensions from './WindowDimension';
 const ENDPOINT = "http://192.168.231.230:3001";			//for also accesing data on another connected device
@@ -76,7 +75,7 @@ const FabricJSCanvas = () => {
 		};
 		const canvas = new fabric.Canvas(canvasEl.current, options);	/*new canvas element created by fabric 
 																		with reference priviously defined and give options*/
-		canvas.freeDrawingBrush.width = 3;
+		canvas.freeDrawingBrush.width = 1;
 
 
 		/*--------Soket----------*/
