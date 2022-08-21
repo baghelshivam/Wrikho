@@ -48,4 +48,4 @@ Adding online support.
 * Each Note has individual files.
 * Can create blank Note by adding it on home page.
 * End to End real time cumunication using socket.io .
-* Home page is completed.
+* Home page auto thumbnail completed.
