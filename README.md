@@ -47,4 +47,5 @@ Adding online support.
 * Added Database support.
 * Each Note has individual files.
 * Can create blank Note by adding it on home page.
-* End to End real time cumunication using socket.io
+* End to End real time cumunication using socket.io .
+* Home page is completed.
