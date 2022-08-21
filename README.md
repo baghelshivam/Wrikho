@@ -56,3 +56,12 @@ BackEnd ongoing.
 * Can create blank Note by adding it on home page.
 * End to End real time cumunication using socket.io .
 * Home page auto thumbnail completed.
+
+
+### Demo
+
+## Home.
+![Home Page](https://github.com/baghelshivam/Wrikho/blob/master/ReadmeAssets/Home.png)
+
+## After clicking thumbnail.
+![Writing Interface](https://github.com/baghelshivam/Wrikho/blob/master/ReadmeAssets/NotePad.png)
