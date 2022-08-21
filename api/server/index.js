@@ -154,7 +154,7 @@ app.get("/imageData/:id", (req, res) => {
 				canvas.renderAll();
 				var url = canvas.toDataURL(
 					{
-						width: 330,
+						width: 375,
 						height: 470
 					}
 				);

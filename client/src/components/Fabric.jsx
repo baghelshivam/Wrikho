@@ -76,7 +76,7 @@ const FabricJSCanvas = () => {
 		};
 		const canvas = new fabric.Canvas(canvasEl.current, options);	/*new canvas element created by fabric 
 																		with reference priviously defined and give options*/
-		canvas.freeDrawingBrush.width = 0.5;
+		canvas.freeDrawingBrush.width = 3;
 
 
 		/*--------Soket----------*/
