@@ -66,4 +66,4 @@ Fectching data from database and respective files so obtaining thumbnail.
 
 #### After clicking thumbnail.
 ![Writing Interface](https://github.com/baghelshivam/Wrikho/blob/master/ReadmeAssets/NotePad.png)
-Now we can preform write ,Delete and Select operations in the Pad.
+Now we can preform write ,delete and select operations in the Pad.
