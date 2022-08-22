@@ -1,7 +1,11 @@
+import { useState } from "react";
+
 const Search = (props) => {
 
+    const [fileName, setFileName] = useState("");
+
     function search() {
-        alert("serching");
+        alert("serching : " + fileName);
     }
     return <div className="flexItems" style={{
         // width: "100%",
@@ -17,7 +21,7 @@ const Search = (props) => {
                 paddingBottom: "0px!important",
                 backgroundColor: "inherit",
                 outline: "none"
-            }}></input>
+            }} onChange={(e) => setFileName(e.target.value)}></input>
 
             <button type="submit">
                 <i className="bi bi-search"></i>
@@ -25,7 +29,7 @@ const Search = (props) => {
 
         </form>
 
-    </div>
+    </div >
 }
 
 export default Search;

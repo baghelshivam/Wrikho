@@ -42,11 +42,13 @@ const Note = (props) => {
                     <img src={data} onClick={callSketch} alt={props.content} />
         }
 
-        <p className="content">{props.content}</p>
+        <div className="content">
+            <button onClick={deleteNote} className="delete">
+                <i className="bi bi-three-dots-vertical"></i>
+            </button>
 
-        <button onClick={deleteNote} className="delete">
-            <i className="bi bi-three-dots-vertical"></i>
-        </button>
+            <p>{props.content}</p>
+        </div>
 
     </div>);
 }
