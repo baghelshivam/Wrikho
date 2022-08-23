@@ -42,7 +42,7 @@ const PopupTemplate = (prop) => {
             visibility: show ? "visible" : "hidden",
             opacity: show ? "1" : "0"
         }}>
-            <div style={{ paddingTop: "10em", color: "black", top: "0", left: "0", right: "0", bottom: "0", textAlign: "center", position: "fixed", zIndex: "4", background: "#48d889" }}>
+            <div style={{ paddingTop: "10em", color: "black", top: "0", left: "0", right: "0", bottom: "0", textAlign: "center", position: "fixed", zIndex: "4", background: "#99ab8c" }}>
                 <h4>New WrikhoPad</h4>
                 <form onSubmit={saveData}>
                     <label htmlFor="fname">Name:</label><br></br>
