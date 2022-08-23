@@ -42,7 +42,7 @@ html, body {
     align-items: center !important;
     font-weight: 600;
     padding: 1.5em;
-    padding-left: 1em;
+    padding-left: 0.5em;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.185);
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     transition: all 280ms cubic-bezier(0.5, 0, 0.1, 1);
@@ -64,8 +64,9 @@ html, body {
     }
 
     .logo {
-        width: 4em;
+        /* width: 4em; */
         color: inherit;
+        padding-right: 4px;
     }
 
     .logo:hover {
@@ -142,18 +143,19 @@ html, body {
 .title {
     outline: none;
     margin: 0;
-    padding-left: 5%;
-    padding-top: 1%;
+    padding: 1% 5%;
     font-size: 1.5em;
     text-align: left;
     position: absolute;
+    text-overflow: ellipsis;
     z-index: 2;
     width: 100%;
-    overflow-x: hidden;
+    /* overflow: hidden; */
     /* background: -webkit-linear-gradient(-90deg, rgba(23, 24, 26, 0.85), rgba(23, 24, 26, 0)); */
     /* background: linear-gradient(180deg, rgba(23, 24, 26, 0.85), rgba(23, 24, 26, 0)); */
     transition: all 280ms cubic-bezier(0.5, 0, 0.1, 1);
 }
+
 
 /* .title:hover{
     background: -webkit-linear-gradient(-90deg, rgba(23, 24, 26, 0.85), rgba(23, 24, 26, 0));
@@ -205,6 +207,9 @@ html, body {
     width: 100%;
 }
 
+.bi-github{
+    font-size: 2em;
+}
 /* ---------------------Fabric------------------- */
 
 .canvas-container {

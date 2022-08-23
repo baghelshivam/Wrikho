@@ -15,7 +15,8 @@ const Header = () => {
     return (
         <header className="header flexItems">
             <div className="flexItems">
-                <a href="/" className="logo">Wrikho</a>
+                {/* <a href="/" className="logo">Wrikho</a> */}
+                <img style={{height:"2em"}} src="Images/wrikhoLogo.png"></img>
             </div>
             <Search show={showSearch} />
             <div className="flexItems" style={{ display: showSearch ? "none" : "inherit" }}>

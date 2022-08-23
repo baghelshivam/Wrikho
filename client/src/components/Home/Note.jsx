@@ -34,7 +34,10 @@ const Note = (props) => {
 
     return (<div className="note" >
 
-        <h1 className="title">{props.title}</h1>
+        <h1 className="title" style={{
+            overflow: "hidden",
+            whiteSpace: "nowrap"
+        }}>{props.title}</h1>
 
         {
             error ? <p>error occured in loading data</p> :
@@ -50,7 +53,7 @@ const Note = (props) => {
             <p>{props.content}</p>
         </div>
 
-    </div>);
+    </div >);
 }
 
 
