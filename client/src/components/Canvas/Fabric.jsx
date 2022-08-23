@@ -15,6 +15,7 @@ const FabricJSCanvas = () => {
 	var canvasScale = 1; 					//for zooming
 	var SCALE_FACTOR = 1.2;
 	const { height, width } = useWindowDimensions();
+	const original = 700;
 
 
 	/*-------------Functions intialization--------------*/
@@ -37,16 +38,20 @@ const FabricJSCanvas = () => {
 	}
 
 	const updateCanvasContext = (canvas) => {		//this is the function which user can define to update context of canvas
+
 		document.getElementById("zoomIn").onclick = function (event) {
 			zoomIn(canvas);
 		};
+
 		document.getElementById("zoomOut").onclick = function (event) {
 			zoomOut(canvas);
 		};
+
 		document.getElementById("drawing").onclick = function (event) {
 			console.log(canvas.isDrawingMode);				//this property is for if we can draw with mouse pointer
 			canvas.isDrawingMode = !canvas.isDrawingMode;
 		}
+
 		document.getElementById("clear").onclick = function (event) {
 			var deletObj = canvas.getActiveObject();
 			if (deletObj.type === "activeSelection") {
@@ -61,52 +66,74 @@ const FabricJSCanvas = () => {
 				}
 			}
 		}
+
 	}
 
 	/*----------Functions intialization ends----------*/
 
 
 	useEffect(() => {						//tells to do something after rendring
+
 		const options = {					//options for canvas
 			backgroundColor: '#fff',
 			selectionColor: '#9fa8a3A9',	//added alpha in hex code last two digits
 			selectionBorderColor: 'black',
 			selectionLineWidth: 1,
 		};
+
 		const canvas = new fabric.Canvas(canvasEl.current, options);	/*new canvas element created by fabric 
 																		with reference priviously defined and give options*/
+
 		canvas.freeDrawingBrush.width = 0.7;
+
 
 		/*--------Soket----------*/
 
 		const socket = socketIOClient(ENDPOINT, { transports: ['websocket', 'polling', 'flashsocket'] });
+
 		socket.on("give-us-id", () => {		//server asking for id of the Note
 			socket.emit("take-id", canvasId);
 		});
-		socket.on("data-from-server", (incomingId, data) => {
-			incomingId === canvasId ? canvas.loadFromJSON(data) : console.log("Ids not match");	//checking incoming data belong to this file or not 
+
+		socket.on("data-from-server-first", (incomingId, data) => {	//retriving data for first time on connection
+			incomingId === canvasId ? canvas.loadFromJSON(data) : console.log("Ids not match");	//checking incoming data belong to this file or not
+			console.log("height first: " + height);
+			canvas.setZoom(canvas.getZoom() * (height / original));	//applying data as per height 
 		});
 
+		socket.on("data-from-server", (incomingId, data) => {
+			incomingId === canvasId ? canvas.loadFromJSON(data) : console.log("Ids not match");	//checking incoming data belong to this file or not
+			console.log("height aother: " + height);
+		});
+
+
 		/*------EventListeners-----*/
+
 		canvas.on("object:modified", () => {	//canvas modified
 			socket.emit("data-from-client", canvasId, JSON.stringify(canvas));
 		});
+
 		canvas.on("path:created", (e) => {		//event listner to check change in data on canvas
 			socket.emit("data-from-client", canvasId, JSON.stringify(canvas));
 		}
 		);
 
-
 		/*-------------SocketEnd---------*/
-		window.addEventListener("resize", ()=>{//when height changes reload canvas
+
+		window.addEventListener("resize", () => {//when height changes reload canvas
 			// canvasEl.current.clientHeight = height;
+			// alert("original height = "+ height);
 			window.location.reload();
 		});
+
 		updateCanvasContext(canvas);
+
 		return () => {
 			updateCanvasContext(null);
+			window.removeEventListener("resize", () => null);
 			canvas.dispose();
 		}
+
 	}, [canvasId]);						//Useeffct ends
 
 	return (

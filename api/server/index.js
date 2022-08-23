@@ -41,7 +41,7 @@ socketIO.sockets.on("connection", function (socket) {
 				if (err) {
 					console.log("error in reading");
 				} else {		//data acquired from NoteId.json file
-					socket.emit("data-from-server", NoteId, JSON.stringify(JSON.parse(data))); //on connection emiting signal
+					socket.emit("data-from-server-first", NoteId, JSON.stringify(JSON.parse(data))); //on connection emiting signal
 				}
 			});
 		}
@@ -154,8 +154,8 @@ app.get("/imageData/:id", (req, res) => {
 				canvas.renderAll();
 				var url = canvas.toDataURL(
 					{
-						width: 375,
-						height: 470
+						width: 343,
+						height: 490
 					}
 				);
 				res.send(JSON.stringify(url));
