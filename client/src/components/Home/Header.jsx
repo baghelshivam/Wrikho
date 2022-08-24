@@ -15,16 +15,15 @@ const Header = () => {
     return (
         <header className="header flexItems">
             <div className="flexItems">
-                {/* <a href="/" className="logo">Wrikho</a> */}
-                <img style={{height:"2em"}} src="Images/wrikhoLogo.png"></img>
+                <a href="/" className="logo"><img style={{height:"2em"}} src="Images/wrikhoLogo.png"></img></a>
             </div>
             <Search show={showSearch} />
             <div className="flexItems" style={{ display: showSearch ? "none" : "inherit" }}>
                 <button id="list">
-                    <i className="bi-list"></i>
+                    <i className="bi bi-list"></i>
                 </button>
                 <button id="add">
-                    <i className="bi-plus-lg"></i>
+                    <i className="bi bi-plus-lg"></i>
                 </button>
                 <button onClick={searchBar}>
                     <i className="bi bi-search"></i>

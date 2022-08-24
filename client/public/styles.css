@@ -41,8 +41,7 @@ html, body {
     color: white;
     align-items: center !important;
     font-weight: 600;
-    padding: 1.5em;
-    padding-left: 0.5em;
+    padding: 1.5em 0em 1.5em 0.5em;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.185);
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     transition: all 280ms cubic-bezier(0.5, 0, 0.1, 1);
@@ -60,7 +59,7 @@ html, body {
     /* portrait e-readers (Nook/Kindle), smaller tablets @ 600 or @ 640 wide. */
     .flexItems {
         height: 1.5em;
-        padding-right: 0.3em;
+        /* padding-right: 0.3em; */
     }
 
     .logo {
@@ -93,7 +92,7 @@ html, body {
     /* tablet, landscape iPad, lo-res laptops ands desktops */
     .flexItems {
         height: 1.7em;
-        padding-right: 3em;
+        /* padding-right: 3em; */
     }
 
     button {
@@ -207,9 +206,10 @@ html, body {
     width: 100%;
 }
 
-.bi-github{
+.bi-github {
     font-size: 2em;
 }
+
 /* ---------------------Fabric------------------- */
 
 .canvas-container {
@@ -230,7 +230,16 @@ canvas {
 }
 
 /*---------------------Header Fabric---------------*/
-.headerFabric {
+/* .headerFabric {
     background: -webkit-linear-gradient(-90deg, rgba(23, 24, 26, 0.85), rgba(23, 24, 26, 0));
-    background: linear-gradient(180deg, rgba(23, 24, 26, 0.85), rgba(23, 24, 26, 0));
+    background: linear-gradient(180deg, rgba(23, 24, 26, 0.85), rgba(23, 24, 26, 0)); */
+/* } */
+
+button:hover{
+    background-color: #00000080;
+    border-radius: 10em;
+}
+
+button:active {
+    color: black;
 }
