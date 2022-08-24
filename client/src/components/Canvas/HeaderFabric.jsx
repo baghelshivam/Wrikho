@@ -5,13 +5,13 @@ function Header() {
     return (
         <header className="header headerFabric flexItems">
             <div className="flexItems">
-                <a href="/" className="logo"><img style={{ height: "2em" }} src="../Images/wrikhoLogo.png"></img></a>
+                <a href="/" className="logo"><img style={{ height: "2em" }} src="../Images/wrikhoLogo.png" alt="Wrikho"></img></a>
             </div>
             <div className="flexItems">
                 <button title="New Page">
                     <i className="bi bi-plus-lg"></i>
                 </button>
-                <button title="Background">
+                <button id="save" title="Save Pdf">
                     <i className="bi bi-image-alt"></i>
                 </button>
                 <button id="clear" title="Clear">

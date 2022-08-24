@@ -18,7 +18,7 @@ const PopupTemplate = (prop) => {
     const saveData = async () => {
         if (canSave) {
             try {
-                const response = await addNewNote({ title, content }).unwrap();
+                await addNewNote({ title, content }).unwrap();
                 setTitle("");
                 setContent("");
             } catch (err) {

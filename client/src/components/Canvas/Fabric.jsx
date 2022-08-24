@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { fabric } from 'fabric';
 import Header from "./HeaderFabric";      //importing components
 import useWindowDimensions from './WindowDimension';
+import jsPDF from 'jspdf';
 
 const ENDPOINT = "http://192.168.70.230:3001";			//for also accesing data on another connected device
 
@@ -137,6 +138,24 @@ const FabricJSCanvas = () => {
 			canvas.isDrawingMode = !canvas.isDrawingMode;
 		}
 
+
+		document.getElementById("save").onclick = function (event) {	//hard coded
+			const copyCanvas = canvas;
+			// copyCanvas.setHeight(1400/1.5);			//this may change if the apect ration of pages are different
+			// copyCanvas.setWidth(980/1.5);			//when copy get changed real one also get changed
+			// copyCanvas.setZoom(2.85/1.5);
+		
+			alert("Tip for better quality first zoom canvas then save.   Saving ...");
+			let canvasWidth = copyCanvas.width;
+			let canvasHeight = copyCanvas.height;
+
+			var pdf = new jsPDF('p','px',[canvasHeight,canvasWidth]);
+			canvasWidth = pdf.internal.pageSize.getWidth();
+			canvasHeight = pdf.internal.pageSize.getHeight();
+			var imgData = copyCanvas.toDataURL("image/jpeg", 1.0);
+			pdf.addImage(imgData, 'png', 0, 0,canvasWidth,canvasHeight);
+			pdf.save("download.pdf");
+		}
 		/*-------------SocketEnd---------*/
 
 
