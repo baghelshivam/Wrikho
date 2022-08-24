@@ -17,6 +17,7 @@ BackEnd ongoing.
 * **@reduxjs/toolkit and react-redux**
 * **socket.io**
 * **Mongoose**
+* **jspdf**
 
 ### For testing
 
