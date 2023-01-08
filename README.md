@@ -1,6 +1,6 @@
 # Wrikho
 
-It is a Web App where user can create hand written notes which is aimed to work on pc,tablet,smarthphone.
+It is a Web App where user can create hand written notes which is aimed to work on pc,tablet,smartphone.
 
 ### Build Status
 
