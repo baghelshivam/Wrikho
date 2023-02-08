@@ -1,6 +1,6 @@
 # Wrikho
 
-It is a Web App where user can create hand written notes which is aimed to work on pc,tablet,smartphone.
+Collaborative whiteboard.
 
 ### Build Status
 
@@ -39,27 +39,26 @@ BackEnd ongoing.
 
 ### Future Plan
 
-- [x] Adding Database.
-- [x] Adding backend functionality.
+- [x] Added Database.
+- [x] Added backend functionality.
 
 
 ### What achived
 
 * Front End using react and redux store.
-* Saving data locally using fs(read,write) File.
-* Added Database support.
+* Data persistence locally using fs(read,write).
+* Added Database.
 * Each Note has individual files.
-* Can create blank Note by adding it on home page.
-* End to End real time cumunication using socket.io .
-* Home page auto thumbnail completed.
+* Can create blank Note.
+* End to End real time cumunication using socket.io on specific Note.
 
 
 ### Demo
 
 #### Home.
 ![Home Page](https://github.com/baghelshivam/Wrikho/blob/master/ReadmeAssets/Home.png)
-Fectching data from database and respective files so obtaining thumbnail.
+Fectching data from database and respective files for thumbnail.
 
-#### After clicking thumbnail.
+#### After opening the Note.
 ![Writing Interface](https://github.com/baghelshivam/Wrikho/blob/master/ReadmeAssets/NotePad.png)
-Now we can preform write ,delete and select operations in the Pad.
+Now we can preform write ,delete and select operations in the Note.
