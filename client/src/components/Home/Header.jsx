@@ -19,15 +19,15 @@ const Header = () => {
             </div>
             <Search show={showSearch} />
             <div className="flexItems" style={{ display: showSearch ? "none" : "inherit" }}>
-                <button id="list">
+                {/* <button id="list">
                     <i className="bi bi-list"></i>
-                </button>
+                </button> */}
                 <button id="add">
                     <i className="bi bi-plus-lg"></i>
                 </button>
-                <button onClick={searchBar}>
+                {/* <button onClick={searchBar}>
                     <i className="bi bi-search"></i>
-                </button>
+                </button> */}
             </div>
         </header>);
 }

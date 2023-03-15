@@ -12,8 +12,10 @@ const Note = (props) => {
 
 
     const delNote = async () => {
+        // const delNote = async () => {
         if (canDelete) {
             try {
+                // await deleteNOTE({ id }).unwrap();
                 await deleteNOTE({ id }).unwrap();
                 setId("");
             } catch (err) {
