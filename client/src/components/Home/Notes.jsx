@@ -1,43 +1,95 @@
-import React, { useState , useEffect } from "react";
-
-import { useGetAllNotesQuery } from "../../features/notesApi";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 import Note from "./Note";
-import Header from "./Header";      //importing components
+import Header from "./Header"; //importing components
 import Footer from "./Footer";
 import PopupTemplate from "./Sizepopup";
+import Loading from "../Loading/Loading";
 
 const Notes = () => {
-    const { data, error, isLoading } = useGetAllNotesQuery({},{refetchOnMountOrArgChange: true});     //invoking data from notes
-    const [visibility, setVisibility] = useState(false);
 
+  const [dataAxios, setDataAxios] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [err, setError] = useState("");
+  
+  const [isOpen, setIsOpen] = useState(false);
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+    console.log("changeing opening "+ isOpen)
+  }
 
-    const addClicked = () => {
-        setVisibility(e => !e);
+  const deleteNode = async (noteId) => {
+    try {
+      await axios.delete(`http://localhost:3001/deleteNote/${noteId}`);
+      setDataAxios(dataAxios.filter((note) => note._id !== noteId));
+    } catch (error) {
+      //   console.log("cant delete errror");
+      console.log(error);
     }
+  };
 
-    useEffect(() => {
-        document.getElementById("add").onclick = function (event) {
-            addClicked();
-        };
-    }, []);
+  const addNote = async (noteData) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3001/addNote",
+        noteData
+      );
+      const newNote = response.data;
+      console.log(newNote);
+      setDataAxios([...dataAxios, newNote]);
+    } catch (error) {
+      console.log(error);
+      setError(error);
+    }
+  };
 
+  useEffect(() => {
+    setIsLoading(true);
+    axios
+      .get("http://localhost:3001/notes")
+      .then((response) => {
+        console.log(response.data);
+        setDataAxios(response.data);
+        setIsLoading(false);
+        // console.log(dataAxios);
+      })
+      .catch((err) => {
+        console.log(err);
+        setError(err);
+        setIsLoading(true)
+      });
+  }, []);
 
-    return (
-        <div>
-            <Header />
-            <PopupTemplate show={visibility} />
-            {
-                error ? (<p style={{ textAlign: "center", marginTop: "20em" }}>An error in fetching data.</p>) :
-                    isLoading ? (<p style={{ textAlign: "center", marginTop: "20em" }}>Loding---</p>) :
-                        (<>
-                            <div className="notes">
-                                {data?.map(note => <Note key={note._id} id={note._id} title={note.title} image={note.link} content={note.content} />)}
-                            </div>
-                        </>)}
-            <Footer />
-        </div>
-    );
-}
+  return (
+    <div>
+      <Header togglePopup={togglePopup} />
+      <PopupTemplate isOpen={isOpen} addNote={addNote} togglePopup={togglePopup} />
+      {err ? (
+        <p style={{ textAlign: "center", marginTop: "20em" }}>
+          An error in fetching data.
+        </p>
+      ) : isLoading ? (
+        <Loading className="popup-overlay" />
+      ) : (
+        <>
+          <div className="notes">
+            {dataAxios?.map((note) => (
+              <Note
+                key={note._id}
+                id={note._id}
+                title={note.title}
+                image={note.data}
+                content={note.content}
+                onDelete={() => deleteNode(note._id)}
+              />
+            ))}
+          </div>
+        </>
+      )}
+      <Footer/>
+    </div>
+  );
+};
 
 export default Notes;
