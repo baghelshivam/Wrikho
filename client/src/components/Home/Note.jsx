@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { useDeleteNoteMutation, useGetImageDataQuery } from '../../features/notesApi';
 
 const Note = (props) => {
@@ -10,29 +10,28 @@ const Note = (props) => {
 
 
 
-
-    const delNote = async () => {
-        // const delNote = async () => {
-        if (canDelete) {
-            try {
-                // await deleteNOTE({ id }).unwrap();
-                await deleteNOTE({ id }).unwrap();
-                setId("");
-            } catch (err) {
-                console.error("Failed to Delete Note.", err);
-            }
-        }
-    }
+    // const delNote = async () => {
+    //     // const delNote = async () => {
+    //     if (canDelete) {
+    //         try {
+    //             // await deleteNOTE({ id }).unwrap();
+    //             await deleteNOTE({ id }).unwrap();
+    //             setId("");
+    //         } catch (err) {
+    //             console.error("Failed to Delete Note.", err);
+    //         }
+    //     }
+    // }
 
     function callSketch() {
         window.location.assign("/canvas/" + props.id);
     }
 
-    function deleteNote() {
-        delNote();
-        console.log("delete pressed : ", props.id);
-        window.location.reload();
-    }
+    // function deleteNote() {
+    //     delNote();
+    //     console.log("delete pressed : ", props.id);
+    //     window.location.reload();
+    // }
 
     return (<div className="note" >
 
@@ -44,11 +43,11 @@ const Note = (props) => {
         {
             error ? <p>error occured in loading data</p> :
                 iSLoading ? <h1>Loading.....</h1> :
-                    <img src={data} onClick={callSketch} alt={props.content} />
+                    <img src={props.image} onClick={callSketch} alt={props.content} />
         }
 
         <div className="content">
-            <button onClick={deleteNote} className="delete">
+            <button onClick={props.onDelete} className="delete">
                 <i className="bi bi-three-dots-vertical"></i>
             </button>
 

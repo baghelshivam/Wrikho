@@ -1,8 +1,7 @@
-import React from "react";
-import { useState } from "react";
+import React, {useState} from "react";
 import Search from "./Search";
 
-const Header = () => {
+const Header = (prop) => {
 
     const [showSearch, setShowSearch] = useState(false);
 
@@ -10,7 +9,9 @@ const Header = () => {
         setShowSearch(e => !e);
     }
 
-
+    const openPopup =()=> {
+        prop.togglePopup();        
+    }
 
     return (
         <header className="header flexItems">
@@ -22,7 +23,7 @@ const Header = () => {
                 {/* <button id="list">
                     <i className="bi bi-list"></i>
                 </button> */}
-                <button id="add">
+                <button id="add" onClick={openPopup}>
                     <i className="bi bi-plus-lg"></i>
                 </button>
                 {/* <button onClick={searchBar}>
