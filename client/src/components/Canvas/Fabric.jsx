@@ -6,7 +6,7 @@ import Header from "./HeaderFabric";      //importing components
 import useWindowDimensions from './WindowDimension';
 import jsPDF from 'jspdf';
 
-const ENDPOINT = "http://localhost:3001";			//for also accesing data on another connected device
+const ENDPOINT = "https://api-kasg.onrender.com";			//for also accesing data on another connected device
 
 
 /*-------------Functions intialization--------------*/

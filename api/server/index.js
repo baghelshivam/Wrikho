@@ -6,17 +6,23 @@ const mongoose = require("mongoose");
 const fs = require("fs");
 const { json } = require("body-parser");
 const fabric = require("fabric").fabric;
-// const { google } = require("googleapis");
 const { response } = require("express");
 var canvas = new fabric.StaticCanvas(null);
-require('dotenv').config();
+require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
+app.use(function (req, res, next) {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  res.setHeader("Access-Control-Allow-Credentials", true);
+  next();
+});
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(cors()); //allowing accesing api from client
 app.use(express.static(path.join(__dirname, "public"))); //for reading files locally form public directory
 
 const server = app.listen(PORT, () => {
@@ -72,9 +78,7 @@ socketIO.sockets.on("connection", function (socket) {
 });
 
 /* ----------------- database ----------------------*/
-mongoose.connect(
-  process.env.DB_CONN
-);
+mongoose.connect(process.env.DB_CONN);
 
 const noteSchema = new mongoose.Schema({
   title: String,
@@ -95,6 +99,18 @@ app.get("/notes", (req, res) => {
     if (err) {
       console.log(err);
     } else {
+      // console.log(notes);
+      notes.map(note => {
+          canvas.loadFromJSON(note.data, () => {
+            canvas.renderAll();
+            var url = canvas.toDataURL({
+              width: 343,
+              height: 490,
+            });
+            note.data = url;
+          });
+      })
+      // console.log(notes);
       res.send(notes);
     }
   });
@@ -103,10 +119,6 @@ app.get("/notes", (req, res) => {
 app.post("/addNote", (req, res) => {
   const data = req.body;
   var query = Note.find();
-  query.count(function (err, count) {
-    if (err) console.log(err);
-    else {
-      console.log("count:", count);
 
       var newNote = new Note({
         title: req.body.title,
@@ -114,19 +126,33 @@ app.post("/addNote", (req, res) => {
         data: { objects: [], background: "#fff" },
       });
       newNote.save((err, result) => {
-        if (err) console.log(err);
+        if (err){
+            res.send(err);
+            console.log(err);
+          }
         else {
           console.log(result);
-          res.send(JSON.stringify(result._id.toHexString()));
+          canvas.loadFromJSON(result.data, () => {
+            canvas.renderAll();
+            var url = canvas.toDataURL({
+              width: 343,
+              height: 490,
+            });
+            result.data = url;
+          });
+          console.log(result);
+          res.send(result);
+          //it is sending only id
+          // res.send(JSON.stringify(result._id.toHexString()));
         }
       });
-    }
-  });
+    // }
+  // });
 });
 
-app.delete("/deleteNote", (req, res) => {
-  console.log("Note to be deleted : ", req.body.id);
-  Note.deleteOne({ _id: req.body.id }, (err, result) => {
+app.delete("/deleteNote/:id", (req, res) => {
+  // console.log("Note to be deleted : ", req.body.id);
+  Note.deleteOne({ _id: req.params.id }, (err, result) => {
     if (err) {
       console.log(err);
       return res.status(500);
@@ -137,24 +163,4 @@ app.delete("/deleteNote", (req, res) => {
   });
 });
 
-app.get("/imageData/:id", (req, res) => {
-  console.log("inside /imageData id is :" + req.params.id);
-
-  Note.findOne({ _id: req.params.id }, (err, data) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log("new one");
-      console.log("result : ", data.title);
-      canvas.loadFromJSON(data.data, () => {
-        canvas.renderAll();
-        var url = canvas.toDataURL({
-          width: 343,
-          height: 490,
-        });
-        res.send(JSON.stringify(url));
-      });
-    }
-  });
-});
 /*-----------------Soket Io -----------------------*/

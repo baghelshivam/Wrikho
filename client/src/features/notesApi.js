@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const notesApi = createApi({
     reducerPath: "notesApi",
-    baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3001" }),     //for accesing on the phone 
+    baseQuery: fetchBaseQuery({ baseUrl: "https://api-kasg.onrender.com" }),     //for accesing on the phone 
     tagTypes: ["Note"],
     endpoints: (builder) => ({
 

@@ -65,6 +65,7 @@ html, body {
     .logo {
         /* width: 4em; */
         color: inherit;
+        /* height: 2em; */
         padding-right: 4px;
     }
 
