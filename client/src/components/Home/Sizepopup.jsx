@@ -1,63 +1,62 @@
-import React, { useState, useEffect } from "react";
-
-import { useAddNewNoteMutation } from "../../features/notesApi";
+import React, { useState, useEffect, useRef } from "react";
+import "./Popup.css";
 
 const PopupTemplate = (prop) => {
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
 
-    const [show, setShow] = useState(false);
-    const [title, setTitle] = useState("name");
-    const [content, setContent] = useState("content");
+  const titleChange = (e) => setTitle(e.target.value);
+  const contentChange = (e) => setContent(e.target.value);
 
-    const [addNewNote, { iSLoading }] = useAddNewNoteMutation();
+  const inputRef = useRef(null);
 
-    const titleChange = e => setTitle(e.target.value);
-    const contentChange = e => setContent(e.target.value);
+  const saveData = (event) => {
+    event.preventDefault();
+    prop.addNote({ title: title, content: content });
+    setTitle("");
+    setContent("");
+    prop.togglePopup();
+  };
 
-    const canSave = [title, content].every(Boolean) && !iSLoading;
-
-    const saveData = async () => {
-        if (canSave) {
-            try {
-                await addNewNote({ title, content }).unwrap();
-                setTitle("");
-                setContent("");
-            } catch (err) {
-                console.error("failed to save post ", err);
-            }
-        }
-        setShow(!prop.show);
+  useEffect(() => {
+    if (prop.isOpen) {
+      inputRef.current.focus();
     }
-
-
-    useEffect(() => {                                           //after page is rendered when onclick event occur save data and post it
-        setShow(prop.show);
-        document.getElementById("cancel").onclick = () => {
-            setShow(false);
-        };
-    }, [prop.show, title, content]); // including name link content so it can be used by savedata
-
-
-    return (
-        <div style={{
-            visibility: show ? "visible" : "hidden",
-            opacity: show ? "1" : "0"
-        }}>
-            <div style={{ paddingTop: "10em", color: "black", top: "0", left: "0", right: "0", bottom: "0", textAlign: "center", position: "absolute", zIndex: "4", background: "#99ab8c" }}>
-                <h4>New WrikhoPad</h4>
-                <form onSubmit={saveData}>
-                    <label htmlFor="fname">Name:</label><br></br>
-                    <input type={"text"} onChange={titleChange} required></input><br></br>
-                    <label htmlFor="lname">Content:</label><br></br>
-                    <input type={"text"} onChange={contentChange} required></input><br></br>
-                    <input type={"submit"} value="Submit" />
-                    {/* <button type={"submit"} value="Submit">Submit</button> */}
-                    <button id="cancel">Cancel</button>
-                    {/* <input id="cancel" type={"cancel"} value="Cancel"/> */}
-                </form>
-                </div>
+  }, [prop.isOpen]);
+  return (
+    <>
+      {prop.isOpen && (
+        <div className="popup-overlay">
+          <div className="popup-container">
+            <div className="popup-content">
+              <div className="popup-header">
+                <h2>New Note</h2>
+                <button onClick={() => prop.togglePopup()}>X</button>
+              </div>
+              <form onSubmit={saveData}>
+                <label>
+                  Title:
+                  <input
+                    ref={inputRef}
+                    type="text"
+                    value={title}
+                    onChange={titleChange}
+                  />
+                </label>
+                <br />
+                <label>
+                  Description:
+                  <textarea value={content} onChange={contentChange} />
+                </label>
+                <br />
+                <button style={{width: "auto"}}type="submit">Submit</button>
+              </form>
             </div>
-
-    );
-}
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
 
 export default PopupTemplate;
