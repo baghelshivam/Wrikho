@@ -42,7 +42,6 @@ const Note = mongoose.model("Note", noteSchema);
 
 /*----------------------- databaseEnd -----------------------*/
 
-
 /*--------------- SocketIo--------------*/
 
 const socketIO = require("socket.io")(server); //socket io server code
@@ -79,7 +78,6 @@ socketIO.sockets.on("connection", function (socket) {
 
 /*-----------------Soket Io -----------------------*/
 
-
 /*-----------------routes-----------------*/
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
@@ -105,7 +103,6 @@ app.get("/notes", (req, res) => {
 });
 
 app.post("/addNote", (req, res) => {
-
   var newNote = new Note({
     title: req.body.title,
     content: req.body.content,
@@ -139,4 +136,3 @@ app.delete("/deleteNote/:id", (req, res) => {
     }
   });
 });
-

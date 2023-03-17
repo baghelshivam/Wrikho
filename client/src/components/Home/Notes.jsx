@@ -8,20 +8,19 @@ import PopupTemplate from "./Sizepopup";
 import Loading from "../Loading/Loading";
 
 const Notes = () => {
-
   const [dataAxios, setDataAxios] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [err, setError] = useState("");
-  
+
   const [isOpen, setIsOpen] = useState(false);
   const togglePopup = () => {
     setIsOpen(!isOpen);
-    console.log("changeing opening "+ isOpen)
-  }
+    console.log("changeing opening " + isOpen);
+  };
 
   const deleteNode = async (noteId) => {
     try {
-      await axios.delete(`http://localhost:3001/deleteNote/${noteId}`);
+      await axios.delete(`https://api-kasg.onrender.com/deleteNote/${noteId}`);
       setDataAxios(dataAxios.filter((note) => note._id !== noteId));
     } catch (error) {
       //   console.log("cant delete errror");
@@ -32,7 +31,7 @@ const Notes = () => {
   const addNote = async (noteData) => {
     try {
       const response = await axios.post(
-        "http://localhost:3001/addNote",
+        "https://api-kasg.onrender.com/addNote",
         noteData
       );
       const newNote = response.data;
@@ -47,7 +46,7 @@ const Notes = () => {
   useEffect(() => {
     setIsLoading(true);
     axios
-      .get("http://localhost:3001/notes")
+      .get("https://api-kasg.onrender.com/notes")
       .then((response) => {
         setDataAxios(response.data);
         setIsLoading(false);
@@ -56,14 +55,18 @@ const Notes = () => {
       .catch((err) => {
         console.log(err);
         setError(err);
-        setIsLoading(true)
+        setIsLoading(true);
       });
   }, []);
 
   return (
     <div>
       <Header togglePopup={togglePopup} />
-      <PopupTemplate isOpen={isOpen} addNote={addNote} togglePopup={togglePopup} />
+      <PopupTemplate
+        isOpen={isOpen}
+        addNote={addNote}
+        togglePopup={togglePopup}
+      />
       {err ? (
         <p style={{ textAlign: "center", marginTop: "20em" }}>
           An error in fetching data.
@@ -86,7 +89,7 @@ const Notes = () => {
           </div>
         </>
       )}
-      <Footer/>
+      <Footer />
     </div>
   );
 };

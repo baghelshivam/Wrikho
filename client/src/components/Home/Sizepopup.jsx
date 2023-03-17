@@ -49,7 +49,9 @@ const PopupTemplate = (prop) => {
                   <textarea value={content} onChange={contentChange} />
                 </label>
                 <br />
-                <button style={{width: "auto"}}type="submit">Submit</button>
+                <button style={{ width: "auto" }} type="submit">
+                  Submit
+                </button>
               </form>
             </div>
           </div>

@@ -1,10 +1,12 @@
 import React from "react";
-import "./Loading.css"
+import "./Loading.css";
 function Loading() {
   return (
-    <div className="loading">
-      <div className="loading-spinner" />
-      <p>Loading...</p>
+    <div className="popup-overlay">
+      <div className="loading">
+        <div className="loading-spinner" />
+        <p>Loading...</p>
+      </div>
     </div>
   );
 }
