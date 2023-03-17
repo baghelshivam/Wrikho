@@ -49,7 +49,6 @@ const Notes = () => {
     axios
       .get("http://localhost:3001/notes")
       .then((response) => {
-        console.log(response.data);
         setDataAxios(response.data);
         setIsLoading(false);
         // console.log(dataAxios);

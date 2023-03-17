@@ -41,8 +41,8 @@ const Note = (props) => {
         }}>{props.title}</h1>
 
         {
-            error ? <p>error occured in loading data</p> :
-                iSLoading ? <h1>Loading.....</h1> :
+            // error ? <p>error occured in loading data</p> :
+                // iSLoading ? <h1>Loading.....</h1> :
                     <img src={props.image} onClick={callSketch} alt={props.content} />
         }
 
